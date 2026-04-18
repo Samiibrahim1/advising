@@ -1,0 +1,94 @@
+databases:
+  - name: advising-v2-db
+    plan: free
+    databaseName: advising_v2
+    user: advising
+
+services:
+  # ── FastAPI Backend ──────────────────────────────────────────────────
+  - type: web
+    name: advising-v2-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    pythonVersion: "3.12.0"
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: advising-v2-db
+          property: connectionURI
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://advising-v2-frontend.onrender.com
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      # Cloudflare R2 storage (optional — leave blank to use local storage)
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET
+        sync: false
+      - key: R2_PUBLIC_BASE_URL
+        sync: false
+      # Google Drive integration (optional)
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REFRESH_TOKEN
+        sync: false
+      - key: GOOGLE_FOLDER_ID
+        sync: false
+
+  # ── React Frontend (static) ─────────────────────────────────────────
+  - type: web
+    name: advising-v2-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: advising-v2-api
+          property: host
+
+  # ── Daily backup cron (optional — requires R2 or persistent disk) ───
+  - type: cron
+    name: advising-v2-backups
+    runtime: python
+    rootDir: backend
+    schedule: "0 3 1 * *"
+    plan: starter
+    pythonVersion: "3.12.0"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m app.services.backup_job
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: advising-v2-db
+          property: connectionURI
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET
+        sync: false

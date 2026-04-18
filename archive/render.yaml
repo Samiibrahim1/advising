@@ -1,0 +1,69 @@
+services:
+  - type: web
+    name: advising-v2-api
+    runtime: python
+    rootDir: v2/backend
+    plan: free
+    pythonVersion: "3.12.0"
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET
+        sync: false
+      - key: R2_PUBLIC_BASE_URL
+        sync: false
+      - key: SMTP_EMAIL
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: CORS_ORIGINS
+        value: https://advising-v2-frontend.onrender.com
+  - type: web
+    name: advising-v2-frontend
+    runtime: static
+    rootDir: v2/frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: advising-v2-api
+          property: host
+  - type: cron
+    name: advising-v2-backups
+    runtime: python
+    rootDir: v2/backend
+    schedule: "0 3 * * *"
+    plan: starter
+    pythonVersion: "3.12.0"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m app.services.backup_job
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET
+        sync: false

@@ -1,0 +1,896 @@
+{
+  "meta": {
+    "id": "c8755b6d-d962-4491-8aa9-09c9551f50b9",
+    "title": "2026-01-09 14:12 — Valantina Ali Kaeen (202201907)",
+    "created_at": "2026-01-09T14:12:29.242651+02:00",
+    "major": "PBHL",
+    "student_id": 202201907,
+    "student_name": "Valantina Ali Kaeen",
+    "period_id": "Spring_2026_20251204_092355",
+    "semester": "Spring",
+    "year": 2026,
+    "advisor_name": "Zahi-Dec 4 2025"
+  },
+  "snapshot": {
+    "courses_table": [
+      {
+        "Course Code": "ACCT201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ARAB201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BCOM300",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "ENGL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BIOL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CHEM201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CHEM202",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "CHEM201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CHEM209",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CHEM210",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "CHEM209",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CIVL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CIVL202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "CIVL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CMPS202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "COMM201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "COMM214",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "ENGL101",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "ENGL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "DSAI401",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "MNGT201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "INFO404",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "CMPS202,STAT201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "PBHL201,BIOL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL203",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "PBHL202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL204",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "PBHL202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL205",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "PBHL201",
+        "Concurrent": "ACCT201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL206",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "PBHL201",
+        "Concurrent": "PBHL208",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL207",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "Junior standing",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL208",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "PBHL201,ENGL201",
+        "Concurrent": "COMM214",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL211",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "PBHL202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL212",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "PBHL211",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL213",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "PBHL205",
+        "Concurrent": "MNGT201,PBHL206",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL220",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "PBHL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL270",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "PBHL203,PBHL207,STAT201,CMPS202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL280",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "Yes",
+        "Prerequisite": "Senior standing",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL281",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "Yes",
+        "Prerequisite": "Senior standing",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PBHL282",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "No",
+        "Prerequisite": "PBHL204,PBHL207,PBHL208,PBHL212,PBHL270,BCOM300",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "S.C.E",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SOCL210",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL202",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "STAT201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "INEG200",
+        "Type": "Intensive",
+        "Credits": 15,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "INEG300",
+        "Type": "Intensive",
+        "Credits": 12,
+        "Offered": "Yes",
+        "Prerequisite": "INEG200",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL101",
+        "Type": "Intensive",
+        "Credits": 6,
+        "Offered": "Yes",
+        "Prerequisite": "INEG300",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CHEM101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BIOL101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PHYS101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "MATH101",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "MATH101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "MATH102",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      }
+    ],
+    "students": [
+      {
+        "ID": 202201907,
+        "NAME": "Valantina Ali Kaeen",
+        "# of Credits Completed": 62.0,
+        "# Registered": 16.0,
+        "Standing": "Senior",
+        "advised": [
+          "PBHL206",
+          "PBHL212",
+          "PBHL270",
+          "PBHL280",
+          "PBHL281",
+          "INFO404"
+        ],
+        "optional": [],
+        "repeat": [],
+        "note": "",
+        "bypasses": {},
+        "courses": [
+          {
+            "Course Code": "ACCT201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ARAB201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BCOM300",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BIOL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CHEM201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CHEM202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: CHEM201",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CHEM209",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CHEM210",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: CHEM209",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CIVL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CIVL202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: CIVL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CMPS202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "COMM201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "COMM214",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ENGL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL101",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ENGL202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "DSAI401",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "MNGT201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "INFO404",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: CMPS202,STAT201",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "PBHL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL201,BIOL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL203",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL202",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL204",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL202",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL205",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL201; Conc: ACCT201",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL206",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL201; Conc: PBHL208",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "PBHL207",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: Junior standing",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL208",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL201,ENGL201; Conc: COMM214",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL211",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL202",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL212",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL211",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "PBHL213",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL205; Conc: MNGT201,PBHL206",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL220",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PBHL270",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL203,PBHL207,STAT201,CMPS202",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met. Prerequisite 'PBHL203' satisfied by current registration. Prerequisite 'PBHL207' satisfied by current registration.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "PBHL280",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: Senior standing",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "PBHL281",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: Senior standing",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "PBHL282",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PBHL204,PBHL207,PBHL208,PBHL212,PBHL270,BCOM300",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'PBHL212' not satisfied.; Prerequisite 'PBHL270' not satisfied.; Prerequisite 'BCOM300' not satisfied. Prerequisite 'PBHL207' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "S.C.E",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SOCL210",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL202",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "STAT201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "INEG200",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "INEG300",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "Prereq: INEG200",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ENGL101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "Prereq: INEG300",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CHEM101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BIOL101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PHYS101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "Prereq: MATH101",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "MATH101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "MATH102",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          }
+        ]
+      }
+    ]
+  }
+}

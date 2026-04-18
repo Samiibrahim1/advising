@@ -1,0 +1,19 @@
+[
+  {
+    "period_id": "Spring_2026_20251204_073415",
+    "semester": "Spring",
+    "year": 2026,
+    "advisor_name": "Joelle Akoury",
+    "created_at": "2025-12-04T07:34:15.892609",
+    "archived_at": "2025-12-04T09:13:42.086263"
+  },
+  {
+    "period_id": "Spring_2026_20251204_092355",
+    "semester": "Spring",
+    "year": 2026,
+    "advisor_name": "Zahi-Dec 4 2025",
+    "created_at": "2025-12-04T11:25:22.258227+02:00",
+    "reconstructed": true,
+    "archived_at": "2026-01-11T10:12:00.237896"
+  }
+]

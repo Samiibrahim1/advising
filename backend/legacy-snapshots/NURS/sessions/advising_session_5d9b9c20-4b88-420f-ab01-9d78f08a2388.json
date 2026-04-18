@@ -1,0 +1,838 @@
+{
+  "meta": {
+    "id": "5d9b9c20-4b88-420f-ab01-9d78f08a2388",
+    "title": "2025-12-09 14:47 — Ahmad Seif El Din Abboush (202501809)",
+    "created_at": "2025-12-09T14:47:14.491761+02:00",
+    "major": "NURS",
+    "student_id": 202501809,
+    "student_name": "Ahmad Seif El Din Abboush",
+    "period_id": "Spring_2025_20251209_122656",
+    "semester": "Spring",
+    "year": 2025,
+    "advisor_name": "Roula Shehadeh"
+  },
+  "snapshot": {
+    "courses_table": [
+      {
+        "Course Code": "ARAB201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BCOM300",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "ENGL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BIOC201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BIOL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CIVL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CIVL202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "CIVL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CMPS202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "COMM214",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "ENGL101",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "ENGL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "HUPS201",
+        "Type": "Required",
+        "Credits": 5,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "HUPS202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "BIOL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "HUPS203",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "HUPS201,HUPS202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "IPEC200",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "No",
+        "Prerequisite": "NURS206,NURS208,NURS210,NURS211",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS200A",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS200B",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "Yes",
+        "Prerequisite": "NURS200A,BIOL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "NURS200A",
+        "Concurrent": "NURS200B,HUPS201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS202",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "No",
+        "Prerequisite": "NURS200A ",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS203",
+        "Type": "Required",
+        "Credits": 5,
+        "Offered": "No",
+        "Prerequisite": "NURS201,HUPS201,HUPS203",
+        "Concurrent": "",
+        "Corequisite": "PHRM201"
+      },
+      {
+        "Course Code": "NURS204",
+        "Type": "Required",
+        "Credits": 5,
+        "Offered": "No",
+        "Prerequisite": "NURS201,HUPS201,HUPS203",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS205",
+        "Type": "Required",
+        "Credits": 5,
+        "Offered": "No",
+        "Prerequisite": "NURS203,HUPS203,PHRM201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS206",
+        "Type": "Required",
+        "Credits": 5,
+        "Offered": "No",
+        "Prerequisite": "NURS204,HUPS203,PHRM201,PSYC202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS208",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "NURS205 ",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS209",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "No",
+        "Prerequisite": "NURS200A,CMPS202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS210",
+        "Type": "Required",
+        "Credits": 4,
+        "Offered": "No",
+        "Prerequisite": "NURS205,NURS291",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS211",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "NURS200A,NURS200B,STAT204",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS212",
+        "Type": "Required",
+        "Credits": 5,
+        "Offered": "No",
+        "Prerequisite": "NURS201,SOCL210,PSYC201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS213",
+        "Type": "Required",
+        "Credits": 5,
+        "Offered": "No",
+        "Prerequisite": "NURS205,NURS206,NURS211,SOC210",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS214",
+        "Type": "Required",
+        "Credits": 5,
+        "Offered": "No",
+        "Prerequisite": "NURS206,NURS208, NURS210,NURS211",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS215",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "No",
+        "Prerequisite": "NURS200A",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS290",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "NURS201,BCOM300",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS291",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "NURS204,NURS205,NURS206",
+        "Concurrent": "NURS208",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "NURS 292",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "NURS291,NURS210,NURS211",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PHRM201",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "No",
+        "Prerequisite": "HUPS201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PSYC201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PSYC202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "PSYC201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SOCL210",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL202",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "STAT204",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "CMPS202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "INEG200",
+        "Type": "Intensive",
+        "Credits": 15,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "INEG300",
+        "Type": "Intensive",
+        "Credits": 12,
+        "Offered": "Yes",
+        "Prerequisite": "INEG200",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL101",
+        "Type": "Intensive",
+        "Credits": 6,
+        "Offered": "Yes",
+        "Prerequisite": "INEG300",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "MATH101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      }
+    ],
+    "students": [
+      {
+        "ID": 202501809,
+        "NAME": "Ahmad Seif El Din Abboush",
+        "# of Credits Completed": 0.0,
+        "# Registered": 2.0,
+        "Standing": "Sophomore",
+        "advised": [],
+        "optional": [],
+        "repeat": [],
+        "note": "",
+        "bypasses": {
+          "NURS200B": {
+            "note": "",
+            "advisor": "Roula Shehadeh",
+            "timestamp": "2025-12-09T12:47:14.432335"
+          }
+        },
+        "courses": [
+          {
+            "Course Code": "ARAB201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BCOM300",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'ENGL201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BIOC201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BIOL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CIVL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Concurrent requirement 'ENGL201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CIVL202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: CIVL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'CIVL201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CMPS202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "COMM214",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Concurrent requirement 'ENGL201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ENGL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL101",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'ENGL101' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ENGL202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'ENGL201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "HUPS201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "HUPS202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: BIOL201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'BIOL201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "HUPS203",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: HUPS201,HUPS202",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'HUPS201' not satisfied.; Prerequisite 'HUPS202' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "IPEC200",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS206,NURS208,NURS210,NURS211",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS206' not satisfied.; Prerequisite 'NURS208' not satisfied.; Prerequisite 'NURS210' not satisfied.; Prerequisite 'NURS211' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS200A",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS200B",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS200A,BIOL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'BIOL201' not satisfied. Prerequisite 'NURS200A' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS200A; Conc: NURS200B,HUPS201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Concurrent requirement 'NURS200B' not satisfied.; Concurrent requirement 'HUPS201' not satisfied. Prerequisite 'NURS200A' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS200A",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered. Prerequisite 'NURS200A' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS203",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS201,HUPS201,HUPS203; Coreq: PHRM201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS201' not satisfied.; Prerequisite 'HUPS201' not satisfied.; Prerequisite 'HUPS203' not satisfied.; Corequisite 'PHRM201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS204",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS201,HUPS201,HUPS203",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS201' not satisfied.; Prerequisite 'HUPS201' not satisfied.; Prerequisite 'HUPS203' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS205",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS203,HUPS203,PHRM201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS203' not satisfied.; Prerequisite 'HUPS203' not satisfied.; Prerequisite 'PHRM201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS206",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS204,HUPS203,PHRM201,PSYC202",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS204' not satisfied.; Prerequisite 'HUPS203' not satisfied.; Prerequisite 'PHRM201' not satisfied.; Prerequisite 'PSYC202' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS208",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS205",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS205' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS209",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS200A,CMPS202",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'CMPS202' not satisfied. Prerequisite 'NURS200A' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS210",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS205,NURS291",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS205' not satisfied.; Prerequisite 'NURS291' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS211",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS200A,NURS200B,STAT204",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS200B' not satisfied.; Prerequisite 'STAT204' not satisfied. Prerequisite 'NURS200A' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS212",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS201,SOCL210,PSYC201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS201' not satisfied.; Prerequisite 'SOCL210' not satisfied.; Prerequisite 'PSYC201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS213",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS205,NURS206,NURS211,SOC210",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS205' not satisfied.; Prerequisite 'NURS206' not satisfied.; Prerequisite 'NURS211' not satisfied. Prerequisite 'SOC210' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS214",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS206,NURS208, NURS210,NURS211",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS206' not satisfied.; Prerequisite 'NURS208' not satisfied.; Prerequisite 'NURS210' not satisfied.; Prerequisite 'NURS211' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS215",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS200A",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered. Prerequisite 'NURS200A' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS290",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS201,BCOM300",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS201' not satisfied.; Prerequisite 'BCOM300' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS291",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS204,NURS205,NURS206; Conc: NURS208",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'NURS204' not satisfied.; Prerequisite 'NURS205' not satisfied.; Prerequisite 'NURS206' not satisfied.; Concurrent requirement 'NURS208' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "NURS 292",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: NURS291,NURS210,NURS211",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PHRM201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: HUPS201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'HUPS201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PSYC201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Concurrent requirement 'ENGL201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PSYC202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PSYC201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'PSYC201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SOCL210",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL202",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Concurrent requirement 'ENGL202' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "STAT204",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: CMPS202",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'CMPS202' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "INEG200",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "INEG300",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "Prereq: INEG200",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met. Prerequisite 'INEG200' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ENGL101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "Prereq: INEG300",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'INEG300' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "MATH101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          }
+        ]
+      }
+    ]
+  }
+}

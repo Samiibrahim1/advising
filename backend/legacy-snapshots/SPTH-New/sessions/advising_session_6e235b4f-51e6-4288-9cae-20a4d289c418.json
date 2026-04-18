@@ -1,0 +1,1436 @@
+{
+  "meta": {
+    "id": "6e235b4f-51e6-4288-9cae-20a4d289c418",
+    "title": "2025-12-13 08:31 — Aya  Hachem Safieddine  (202301992)",
+    "created_at": "2025-12-13T08:31:08.550690+02:00",
+    "major": "SPTH-New",
+    "student_id": 202301992,
+    "student_name": "Aya  Hachem Safieddine ",
+    "period_id": "Spring_2026_20251128_054053",
+    "semester": "Spring",
+    "year": 2026,
+    "advisor_name": "Joelle Akoury"
+  },
+  "snapshot": {
+    "courses_table": [
+      {
+        "Course Code": "ARAB201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BCOM300",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "ENGL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BIOL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CIVL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CIVL202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "CIVL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CMPS202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "COMM201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "ENGL101",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "ENGL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PSYC201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "ENGL201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "STAT201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH201",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "ENGL101",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH202",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "yes",
+        "Prerequisite": "SPTH201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH204",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "SPTH201",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH205N",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH201,SPTH204",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH206N",
+        "Type": "Required",
+        "Credits": 4,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH231",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH207",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "SPTH202,SPTH208",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH208",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "SPTH202,SPTH204,BIOL201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH209",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "SPTH204",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH210",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "PSYC201,SPTH209",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH211",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "No",
+        "Prerequisite": "SPTH205N",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH212",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "No",
+        "Prerequisite": "SPTH202,SPTH225,Senior Standing",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH217",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH204,SPTH230",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH219",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH226",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH224",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH202,SPTH234",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH225",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH226",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "SPTH227,SPTH231",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH227",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "SPTH201",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH228",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH225,SPTH231",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH229N",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH209,SPTH225,Senior Standing",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH230",
+        "Type": "Required",
+        "Credits": 2,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH225,SPTH227",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH231",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH225",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH234",
+        "Type": "Required",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH201,SPTH205N",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH240",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH296A,SPTH296B,SPTH275",
+        "Concurrent": "",
+        "Corequisite": "SPTH240S"
+      },
+      {
+        "Course Code": "SPTH240S",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "No",
+        "Prerequisite": "SPTH296A,SPTH296B,SPTH275",
+        "Concurrent": "",
+        "Corequisite": "SPTH240"
+      },
+      {
+        "Course Code": "SPTH241",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH240",
+        "Concurrent": "",
+        "Corequisite": "SPTH241S"
+      },
+      {
+        "Course Code": "SPTH241S",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": "SPTH241"
+      },
+      {
+        "Course Code": "SPTH250",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "Yes",
+        "Prerequisite": "ENGL202",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "SPTH270",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "SPTH201",
+        "Corequisite": "SPTH290"
+      },
+      {
+        "Course Code": "SPTH271",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH201,SPTH270",
+        "Concurrent": "",
+        "Corequisite": "SPTH291,SPTH292"
+      },
+      {
+        "Course Code": "SPTH272",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "No",
+        "Prerequisite": "SPTH271",
+        "Concurrent": "",
+        "Corequisite": "SPTH293A,SPTH294A"
+      },
+      {
+        "Course Code": "SPTH273",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH272",
+        "Concurrent": "",
+        "Corequisite": "SPTH293B,SPTH294B"
+      },
+      {
+        "Course Code": "SPTH274",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "No",
+        "Prerequisite": "SPTH273",
+        "Concurrent": "",
+        "Corequisite": "SPTH296A"
+      },
+      {
+        "Course Code": "SPTH274W",
+        "Type": "",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH273",
+        "Concurrent": "",
+        "Corequisite": "SPTH296A,SPTH274"
+      },
+      {
+        "Course Code": "SPTH275",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH274",
+        "Concurrent": "",
+        "Corequisite": "SPTH296B"
+      },
+      {
+        "Course Code": "SPTH275W",
+        "Type": "",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH274",
+        "Concurrent": "",
+        "Corequisite": "SPTH296B,SPTH275"
+      },
+      {
+        "Course Code": "SPTH276",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "No",
+        "Prerequisite": "SPTH275",
+        "Concurrent": "",
+        "Corequisite": "SPTH297A,SPTH298A,SPTH299A"
+      },
+      {
+        "Course Code": "SPTH276W",
+        "Type": "",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH275",
+        "Concurrent": "",
+        "Corequisite": "SPTH297A,SPTH298A,SPTH299A,SPTH276"
+      },
+      {
+        "Course Code": "SPTH277",
+        "Type": "Required",
+        "Credits": 1,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH276",
+        "Concurrent": "",
+        "Corequisite": "SPTH297B,SPTH299B"
+      },
+      {
+        "Course Code": "SPTH277W",
+        "Type": "",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH276",
+        "Concurrent": "",
+        "Corequisite": "SPTH297B,SPTH 299B,SPTH277"
+      },
+      {
+        "Course Code": "SPTH290",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "SPTH201",
+        "Corequisite": "SPTH270"
+      },
+      {
+        "Course Code": "SPTH291",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH270,SPTH290",
+        "Concurrent": "",
+        "Corequisite": "SPTH271,SPTH292"
+      },
+      {
+        "Course Code": "SPTH292",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH204,SPTH270,SPTH290",
+        "Concurrent": "",
+        "Corequisite": "SPTH271,SPTH291"
+      },
+      {
+        "Course Code": "SPTH293A",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH202,SPTH291",
+        "Concurrent": "",
+        "Corequisite": "SPTH272"
+      },
+      {
+        "Course Code": "SPTH293B",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH293A,BCOM300",
+        "Concurrent": "",
+        "Corequisite": "SPTH273"
+      },
+      {
+        "Course Code": "SPTH294A",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH202,SPTH291",
+        "Concurrent": "",
+        "Corequisite": "SPTH272"
+      },
+      {
+        "Course Code": "SPTH294B",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH294A",
+        "Concurrent": "",
+        "Corequisite": "SPTH273"
+      },
+      {
+        "Course Code": "SPTH296A",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH227,SPTH231,SPTH293B,SPTH294B",
+        "Concurrent": "",
+        "Corequisite": "SPTH274"
+      },
+      {
+        "Course Code": "SPTH296B",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH296A",
+        "Concurrent": "",
+        "Corequisite": "SPTH275"
+      },
+      {
+        "Course Code": "SPTH297A",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH206N,SPTH226,SPTH296B",
+        "Concurrent": "",
+        "Corequisite": "SPTH276"
+      },
+      {
+        "Course Code": "SPTH297B",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH297A",
+        "Concurrent": "",
+        "Corequisite": "SPTH277"
+      },
+      {
+        "Course Code": "SPTH298A",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH206N,SPTH226,SPTH296B",
+        "Concurrent": "",
+        "Corequisite": "SPTH276"
+      },
+      {
+        "Course Code": "SPTH298B",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH206N,SPTH226,SPTH298A",
+        "Concurrent": "",
+        "Corequisite": "SPTH277"
+      },
+      {
+        "Course Code": "SPTH299A",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "No",
+        "Prerequisite": "SPTH234,SPTH217,SPTH209,SPTH296B",
+        "Concurrent": "",
+        "Corequisite": "SPTH276,SPTH298A"
+      },
+      {
+        "Course Code": "SPTH299B",
+        "Type": "Required",
+        "Credits": 0,
+        "Offered": "Yes",
+        "Prerequisite": "SPTH299A",
+        "Concurrent": "",
+        "Corequisite": "SPTH277,SPTH298B"
+      },
+      {
+        "Course Code": "INEG200",
+        "Type": "Intensive",
+        "Credits": 15,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "INEG300",
+        "Type": "Intensive",
+        "Credits": 12,
+        "Offered": "Yes",
+        "Prerequisite": "INEG200",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "ENGL101",
+        "Type": "Intensive",
+        "Credits": 6,
+        "Offered": "Yes",
+        "Prerequisite": "INEG300",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "CHEM101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "BIOL101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "No",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "PHYS101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "MATH101",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "MATH101",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      },
+      {
+        "Course Code": "MATH102",
+        "Type": "Intensive",
+        "Credits": 3,
+        "Offered": "Yes",
+        "Prerequisite": "",
+        "Concurrent": "",
+        "Corequisite": ""
+      }
+    ],
+    "students": [
+      {
+        "ID": 202301992,
+        "NAME": "Aya  Hachem Safieddine ",
+        "# of Credits Completed": 31.0,
+        "# Registered": 15.0,
+        "Standing": "Junior",
+        "advised": [
+          "ENGL202",
+          "SPTH230",
+          "SPTH231",
+          "SPTH273",
+          "SPTH294B",
+          "SPTH293B",
+          "CIVL201",
+          "COMM201"
+        ],
+        "optional": [],
+        "repeat": [],
+        "note": "",
+        "bypasses": {
+          "SPTH293B": {
+            "note": "CURRENTLY REGISTERED IN BCOM300",
+            "advisor": "Joelle Akoury",
+            "timestamp": "2025-12-13T06:30:35.654371"
+          }
+        },
+        "courses": [
+          {
+            "Course Code": "ARAB201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BCOM300",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL201",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BIOL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CIVL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "CIVL202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: CIVL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'CIVL201' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CMPS202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "COMM201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "ENGL201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL101",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ENGL202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "PSYC201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL201",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "STAT201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH201",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: ENGL101",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH202",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH201",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH204",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: SPTH201",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH205N",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH201,SPTH204",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH206N",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH231",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH231' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH207",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH202,SPTH208",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered. Prerequisite 'SPTH208' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH208",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH202,SPTH204,BIOL201",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH209",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH204",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH210",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: PSYC201,SPTH209",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH209' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH211",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH205N",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH212",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH202,SPTH225,Senior Standing",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'Senior Standing' not satisfied. Prerequisite 'SPTH225' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH217",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH204,SPTH230",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH230' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH219",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH226",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH226' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH224",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH202,SPTH234",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH225",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH201",
+            "Offered": "Yes",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH226",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH227,SPTH231",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH231' not satisfied. Prerequisite 'SPTH227' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH227",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH201",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH228",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH225,SPTH231",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH231' not satisfied. Prerequisite 'SPTH225' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH229N",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH209,SPTH225,Senior Standing",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH209' not satisfied.; Prerequisite 'Senior Standing' not satisfied. Prerequisite 'SPTH225' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH230",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH225,SPTH227",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met. Prerequisite 'SPTH225' satisfied by current registration. Prerequisite 'SPTH227' satisfied by current registration.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "SPTH231",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH225",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met. Prerequisite 'SPTH225' satisfied by current registration.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "SPTH234",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH201,SPTH205N",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH240",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH296A,SPTH296B,SPTH275; Coreq: SPTH240S",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH296A' not satisfied.; Prerequisite 'SPTH296B' not satisfied.; Prerequisite 'SPTH275' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH240S",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH296A,SPTH296B,SPTH275; Coreq: SPTH240",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH296A' not satisfied.; Prerequisite 'SPTH296B' not satisfied.; Prerequisite 'SPTH275' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH241",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH240; Coreq: SPTH241S",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH240' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH241S",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Coreq: SPTH241",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "Must be taken with: SPTH241.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH250",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: ENGL202",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'ENGL202' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH270",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: SPTH201; Coreq: SPTH290",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH271",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH201,SPTH270; Coreq: SPTH291,SPTH292",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH272",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH271; Coreq: SPTH293A,SPTH294A",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH273",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH272; Coreq: SPTH293B,SPTH294B",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met. Prerequisite 'SPTH272' satisfied by current registration.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "SPTH274",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH273; Coreq: SPTH296A",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH273' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH274W",
+            "Type": null,
+            "Title": "",
+            "Requisites": "Prereq: SPTH273; Coreq: SPTH296A,SPTH274",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH275",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH274; Coreq: SPTH296B",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH274' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH275W",
+            "Type": null,
+            "Title": "",
+            "Requisites": "Prereq: SPTH274; Coreq: SPTH296B,SPTH275",
+            "Offered": "Yes",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH276",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH275; Coreq: SPTH297A,SPTH298A,SPTH299A",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH275' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH276W",
+            "Type": null,
+            "Title": "",
+            "Requisites": "Prereq: SPTH275; Coreq: SPTH297A,SPTH298A,SPTH299A,SPTH276",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH277",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH276; Coreq: SPTH297B,SPTH299B",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH276' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH277W",
+            "Type": null,
+            "Title": "",
+            "Requisites": "Prereq: SPTH276; Coreq: SPTH297B,SPTH 299B,SPTH277",
+            "Offered": "Yes",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH290",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Conc: SPTH201; Coreq: SPTH270",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH291",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH270,SPTH290; Coreq: SPTH271,SPTH292",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH292",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH204,SPTH270,SPTH290; Coreq: SPTH271,SPTH291",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH293A",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH202,SPTH291; Coreq: SPTH272",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH293B",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH293A,BCOM300; Coreq: SPTH273",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'BCOM300' not satisfied. Prerequisite 'SPTH293A' satisfied by current registration.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "SPTH294A",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH202,SPTH291; Coreq: SPTH272",
+            "Offered": "No",
+            "Eligibility Status": "Registered",
+            "Justification": "Already registered for this course.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH294B",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH294A; Coreq: SPTH273",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met. Prerequisite 'SPTH294A' satisfied by current registration.",
+            "Action": "Advised"
+          },
+          {
+            "Course Code": "SPTH296A",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH227,SPTH231,SPTH293B,SPTH294B; Coreq: SPTH274",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH231' not satisfied.; Prerequisite 'SPTH293B' not satisfied.; Prerequisite 'SPTH294B' not satisfied. Prerequisite 'SPTH227' satisfied by current registration.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH296B",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH296A; Coreq: SPTH275",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH296A' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH297A",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH206N,SPTH226,SPTH296B; Coreq: SPTH276",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH206N' not satisfied.; Prerequisite 'SPTH226' not satisfied.; Prerequisite 'SPTH296B' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH297B",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH297A; Coreq: SPTH277",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH297A' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH298A",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH206N,SPTH226,SPTH296B; Coreq: SPTH276",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH206N' not satisfied.; Prerequisite 'SPTH226' not satisfied.; Prerequisite 'SPTH296B' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH298B",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH206N,SPTH226,SPTH298A; Coreq: SPTH277",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH206N' not satisfied.; Prerequisite 'SPTH226' not satisfied.; Prerequisite 'SPTH298A' not satisfied.; Corequisite 'SPTH277' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH299A",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH234,SPTH217,SPTH209,SPTH296B; Coreq: SPTH276,SPTH298A",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.; Prerequisite 'SPTH217' not satisfied.; Prerequisite 'SPTH209' not satisfied.; Prerequisite 'SPTH296B' not satisfied.; Corequisite 'SPTH298A' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "SPTH299B",
+            "Type": "Required",
+            "Title": "",
+            "Requisites": "Prereq: SPTH299A; Coreq: SPTH277,SPTH298B",
+            "Offered": "Yes",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Prerequisite 'SPTH299A' not satisfied.; Corequisite 'SPTH298B' not satisfied.",
+            "Action": ""
+          },
+          {
+            "Course Code": "INEG200",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "INEG300",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "Prereq: INEG200",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "ENGL101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "Prereq: INEG300",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "CHEM101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "BIOL101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "No",
+            "Eligibility Status": "Not Eligible",
+            "Justification": "Course not offered.",
+            "Action": ""
+          },
+          {
+            "Course Code": "PHYS101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "Prereq: MATH101",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          },
+          {
+            "Course Code": "MATH101",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Completed",
+            "Justification": "Already completed.",
+            "Action": ""
+          },
+          {
+            "Course Code": "MATH102",
+            "Type": "Intensive",
+            "Title": "",
+            "Requisites": "None",
+            "Offered": "Yes",
+            "Eligibility Status": "Eligible",
+            "Justification": "All requirements met.",
+            "Action": ""
+          }
+        ]
+      }
+    ]
+  }
+}

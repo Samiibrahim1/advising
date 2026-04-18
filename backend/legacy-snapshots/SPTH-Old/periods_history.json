@@ -1,0 +1,18 @@
+[
+  {
+    "period_id": "default_2025",
+    "semester": "Fall",
+    "year": 2025,
+    "advisor_name": "",
+    "created_at": "2025-11-26T13:01:56.157956",
+    "archived_at": "2025-11-26T13:02:11.323361"
+  },
+  {
+    "period_id": "Spring_2026_20251126_130212",
+    "semester": "Spring",
+    "year": 2026,
+    "advisor_name": "Dima",
+    "created_at": "2025-11-26T13:02:12.919834",
+    "archived_at": "2025-11-28T05:40:51.680153"
+  }
+]
