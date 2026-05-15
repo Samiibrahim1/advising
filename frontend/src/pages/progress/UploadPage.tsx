@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useProgressStatus, useDatasetVersions } from '../../lib/hooks'
-import { uploadProgressReport, previewProgressReport, uploadCourseConfig, uploadElectiveAssignments, API_BASE_URL } from '../../lib/api'
+import { uploadProgressReport, previewProgressReport, uploadCourseConfig, API_BASE_URL } from '../../lib/api'
 import { useMajorContext } from '../../lib/MajorContext'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -88,10 +88,8 @@ export function UploadPage() {
 
   const [prLoading, setPrLoading] = useState(false)
   const [ccLoading, setCcLoading] = useState(false)
-  const [eaLoading, setEaLoading] = useState(false)
   const [prMsg, setPrMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [ccMsg, setCcMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
-  const [eaMsg, setEaMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [prPreview, setPrPreview] = useState<{ new_students: number; removed_students: number; grade_changes: number; total_students: number; _file: File } | null>(null)
 
   async function handleProgressReport(file: File) {
@@ -134,21 +132,6 @@ export function UploadPage() {
       setCcMsg({ type: 'error', text: err instanceof Error ? err.message : 'Upload failed.' })
     } finally {
       setCcLoading(false)
-    }
-  }
-
-  async function handleElectiveAssignments(file: File) {
-    setEaMsg(null)
-    setEaLoading(true)
-    try {
-      const result = await uploadElectiveAssignments(majorCode, file)
-      const summary = `Done — ${result.upserted} upserted, ${result.skipped} skipped.`
-      const detail = result.errors.length > 0 ? `\n\nRow errors:\n${result.errors.slice(0, 10).join('\n')}${result.errors.length > 10 ? `\n…and ${result.errors.length - 10} more` : ''}` : ''
-      setEaMsg({ type: result.skipped > 0 && result.upserted === 0 ? 'error' : 'success', text: summary + detail })
-    } catch (err: unknown) {
-      setEaMsg({ type: 'error', text: err instanceof Error ? err.message : 'Upload failed.' })
-    } finally {
-      setEaLoading(false)
     }
   }
 
@@ -251,34 +234,6 @@ export function UploadPage() {
             <strong>PassingGrades:</strong> comma-separated grades, e.g. <code>A+,A,A-,B+,B,B-,C+,C</code>
           </div>
         </div>
-      </div>
-
-      {/* Elective Assignments */}
-      <div className="panel stack mt-4">
-        <div className="panel-header mb-3">
-          <h3>Bulk Elective Assignments</h3>
-          <p className="text-muted text-sm">
-            Upload an Excel file to assign or update elective courses for many students at once.
-            Required columns: <strong>Student ID</strong> (or <strong>ID</strong>), <strong>Assignment Type</strong> (e.g.&nbsp;SCE), <strong>Course Code</strong>.
-            One row per assignment. Existing assignments for those students are overwritten.
-          </p>
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <button type="button" className="btn-sm btn-outline" style={{ fontSize: '0.72rem', padding: '1px 8px', width: 'fit-content' }} onClick={() => downloadTemplate('/progress/templates/elective-assignments', 'elective_assignments_template.xlsx')}>↓ Template</button>
-            {activeVersions['elective_assignments'] && (
-              <button type="button" className="btn-sm btn-outline" style={{ fontSize: '0.72rem', padding: '1px 8px', width: 'fit-content' }} onClick={() => downloadTemplate(`/datasets/${majorCode}/elective_assignments/download`, activeVersions['elective_assignments'].original_filename || 'elective_assignments.xlsx')}>↓ Current File</button>
-            )}
-          </div>
-        </div>
-        <UploadZone
-          label="Drop elective assignments Excel here or click to browse"
-          hint="Accepted: .xlsx, .xls"
-          onUpload={handleElectiveAssignments}
-          loading={eaLoading}
-          accept=".xlsx,.xls"
-        />
-        {eaMsg && (
-          <div className={`alert alert-${eaMsg.type} mt-3`} style={{ whiteSpace: 'pre-wrap' }}>{eaMsg.text}</div>
-        )}
       </div>
 
       {/* Upload diff preview confirmation modal */}

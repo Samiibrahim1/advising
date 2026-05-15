@@ -230,6 +230,20 @@ export function WorkspacePage() {
     queryClient.invalidateQueries({ queryKey: ['student-eligibility', majorCode, selectedStudentId] })
   }
 
+  async function handleResetPlacements() {
+    if (!selectedStudentId) return
+    const r = await authedFetch('/advising/exclusions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ major_code: majorCode, student_ids: [selectedStudentId], course_codes: [] }),
+    })
+    if (!r.ok) { setMessage({ type: 'error', text: await r.text() }); return }
+    setExcludedCourses([])
+    setOriginalExcludedCourses([])
+    setMessage({ type: 'success', text: 'Placements reset — all intensive courses are now active.' })
+    queryClient.invalidateQueries({ queryKey: ['student-eligibility', majorCode, selectedStudentId] })
+  }
+
 
   async function handleBypassSave() {
     if (!selectedStudentId || !bypassCourse) return
@@ -379,18 +393,30 @@ export function WorkspacePage() {
 
             {activeTab === 'academic' && (
               <div className="stack">
-                {intensiveCourses.length > 0 && (
-                  <div className="panel stack">
-                    <div className="flex-between">
-                      <div>
-                        <h3 style={{ margin: 0 }}>Intensive Course Placement <Tooltip text="Mark a course as 'Excluded' to remove it from this student's eligible list during intensive semesters." /></h3>
-                        <p className="text-muted text-sm" style={{ margin: '4px 0 0' }}>Select which intensive course(s) apply to this student.</p>
-                      </div>
-                      <div style={{ display: 'flex', gap: '0.5rem' }}>
-                        <button type="button" className="btn-sm btn-outline" onClick={() => setExcludedCourses(originalExcludedCourses)}>Reset</button>
-                        <button type="button" className="btn-primary btn-sm" onClick={handleSavePlacements}>Save Placement</button>
-                      </div>
+                <div className="panel stack">
+                  <div className="flex-between">
+                    <div>
+                      <h3 style={{ margin: 0 }}>Intensive Course Placement <Tooltip text="Mark a course as 'Excluded' to remove it from this student's eligible list during intensive semesters." /></h3>
+                      <p className="text-muted text-sm" style={{ margin: '4px 0 0' }}>Select which intensive course(s) apply to this student.</p>
                     </div>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      {intensiveCourses.length === 0 && (
+                        <button type="button" className="btn-sm btn-primary" onClick={handleResetPlacements}>Reset Placements</button>
+                      )}
+                      {intensiveCourses.length > 0 && (
+                        <>
+                          <button type="button" className="btn-sm btn-outline" onClick={() => setExcludedCourses(originalExcludedCourses)}>Reset</button>
+                          <button type="button" className="btn-primary btn-sm" onClick={handleSavePlacements}>Save Placement</button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  {intensiveCourses.length === 0 ? (
+                    <div className="text-muted text-sm" style={{ padding: '0.75rem 0' }}>
+                      All intensive courses are currently excluded and will not appear in the schedule.
+                      Click <strong>Reset Placements</strong> to restore them.
+                    </div>
+                  ) : (
                     <div className="placement-grid">
                       {intensiveCourses.map((course) => {
                         const isExcluded = excludedCourses.includes(course.course_code)
@@ -404,8 +430,8 @@ export function WorkspacePage() {
                         )
                       })}
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
                 <EligibilityTables eligibility={student.data.eligibility} intensiveCourses={intensiveCourses} />
               </div>
             )}

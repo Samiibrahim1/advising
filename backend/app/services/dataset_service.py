@@ -190,11 +190,15 @@ def upload_dataset(session: Session, *, major_code: str, dataset_type: str, file
 
 def _refresh_email_roster(session: Session, major_id: int, rows: list[dict[str, Any]]) -> None:
     session.query(EmailRosterEntry).filter(EmailRosterEntry.major_id == major_id).delete()
+    seen_ids: set[str] = set()
     for row in rows:
         student_id = str(row.get('Student ID') or row.get('ID') or row.get('student_id') or '').strip()
         email = str(row.get('Email') or row.get('email') or '').strip().lower()
         if not student_id or not email:
             continue
+        if student_id in seen_ids:
+            continue
+        seen_ids.add(student_id)
         session.add(
             EmailRosterEntry(
                 major_id=major_id,

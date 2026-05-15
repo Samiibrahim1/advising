@@ -12,6 +12,7 @@ except ImportError:
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from fastapi.responses import Response, StreamingResponse
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.api.deps import ensure_major_access, get_db, require_admin, require_staff
@@ -190,6 +191,8 @@ async def upload_dataset_route(
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except IntegrityError as exc:
+        raise HTTPException(status_code=409, detail='Duplicate entry detected in uploaded file. Check for repeated Student IDs.') from exc
     # Store uploader info in metadata so it surfaces in the version list
     version.metadata_json = {**version.metadata_json, 'uploaded_by': user.full_name or user.email}
     log_event(db, user.id, 'dataset.uploaded', 'dataset_version', str(version.id), {'major_code': major_code, 'dataset_type': dataset_type})

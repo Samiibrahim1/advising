@@ -1,13 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useMajorContext } from '../../lib/MajorContext'
-import { useProgressEquivalents, useProgressAssignmentTypes } from '../../lib/hooks'
+import { useProgressEquivalents, useProgressAssignmentTypes, useDatasetVersions } from '../../lib/hooks'
 import {
   setProgressEquivalents,
   createProgressAssignmentType,
   deleteProgressAssignmentType,
+  uploadElectiveAssignments,
+  API_BASE_URL,
   type EquivalentCourse,
 } from '../../lib/api'
+
+async function downloadTemplate(path: string, filename: string) {
+  const token = window.localStorage.getItem('advising_v2_token')
+  const res = await fetch(`${API_BASE_URL}/api${path}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+  })
+  if (!res.ok) return
+  const blob = await res.blob()
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url; a.download = filename
+  document.body.appendChild(a); a.click()
+  a.remove(); URL.revokeObjectURL(url)
+}
 
 // ─── Equivalents panel ───────────────────────────────────────────
 
@@ -238,6 +254,77 @@ function AssignmentTypesPanel({ majorCode }: { majorCode: string }) {
   )
 }
 
+// ─── Bulk elective assignments panel ───────────────────────────
+
+function BulkElectivePanel({ majorCode }: { majorCode: string }) {
+  const versions = useDatasetVersions(majorCode)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [loading, setLoading] = useState(false)
+  const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+
+  const activeVersions: Record<string, { original_filename: string | null }> = {}
+  for (const v of versions.data ?? []) {
+    if (v.is_active) activeVersions[v.dataset_type] = v
+  }
+
+  async function handleFile(file: File | undefined) {
+    if (!file) return
+    setMsg(null)
+    setLoading(true)
+    try {
+      const result = await uploadElectiveAssignments(majorCode, file)
+      const summary = `Done — ${result.upserted} upserted, ${result.skipped} skipped.`
+      const detail = result.errors.length > 0
+        ? `\n\nRow errors:\n${result.errors.slice(0, 10).join('\n')}${result.errors.length > 10 ? `\n…and ${result.errors.length - 10} more` : ''}`
+        : ''
+      setMsg({ type: result.skipped > 0 && result.upserted === 0 ? 'error' : 'success', text: summary + detail })
+    } catch (err: unknown) {
+      setMsg({ type: 'error', text: err instanceof Error ? err.message : 'Upload failed.' })
+    } finally {
+      setLoading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
+
+  return (
+    <div className="panel stack">
+      <div className="panel-header mb-3">
+        <h3>Bulk Elective Assignments</h3>
+        <p className="text-muted text-sm">
+          Upload an Excel file to assign or update elective courses for many students at once.
+          Required columns: <strong>Student ID</strong> (or <strong>ID</strong>), <strong>Assignment Type</strong> (e.g.&nbsp;SCE), <strong>Course Code</strong>.
+          One row per assignment. Existing assignments for those students are overwritten.
+        </p>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <button type="button" className="btn-sm btn-outline" style={{ fontSize: '0.72rem', padding: '1px 8px', width: 'fit-content' }} onClick={() => downloadTemplate('/progress/templates/elective-assignments', 'elective_assignments_template.xlsx')}>↓ Template</button>
+          {activeVersions['elective_assignments'] && (
+            <button type="button" className="btn-sm btn-outline" style={{ fontSize: '0.72rem', padding: '1px 8px', width: 'fit-content' }} onClick={() => downloadTemplate(`/datasets/${majorCode}/elective_assignments/download`, activeVersions['elective_assignments'].original_filename || 'elective_assignments.xlsx')}>↓ Current File</button>
+          )}
+        </div>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".xlsx,.xls"
+          style={{ display: 'none' }}
+          onChange={(e) => handleFile(e.target.files?.[0])}
+        />
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={loading}
+        >
+          {loading ? 'Uploading…' : 'Choose File & Upload'}
+        </button>
+        <span className="text-muted text-sm">Accepted: .xlsx, .xls</span>
+      </div>
+      {msg && <div className={`alert alert-${msg.type} mt-2`} style={{ whiteSpace: 'pre-wrap' }}>{msg.text}</div>}
+    </div>
+  )
+}
+
 // ─── Main page ───────────────────────────────────────────────────
 
 export function ConfigurePage() {
@@ -259,10 +346,13 @@ export function ConfigurePage() {
       </div>
 
       {majorCode ? (
-        <div className="grid-2">
-          <EquivalentsPanel majorCode={majorCode} />
-          <AssignmentTypesPanel majorCode={majorCode} />
-        </div>
+        <>
+          <div className="grid-2">
+            <EquivalentsPanel majorCode={majorCode} />
+            <AssignmentTypesPanel majorCode={majorCode} />
+          </div>
+          <BulkElectivePanel majorCode={majorCode} />
+        </>
       ) : (
         <div className="empty-state">Select a major to configure.</div>
       )}
