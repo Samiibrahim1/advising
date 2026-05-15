@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useMajorContext } from '../../lib/MajorContext'
 import { useProgressEquivalents, useProgressAssignmentTypes } from '../../lib/hooks'
@@ -20,10 +20,12 @@ function EquivalentsPanel({ majorCode }: { majorCode: string }) {
   const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
 
   // Seed local state once data arrives
-  if (!initialised && equivQuery.data) {
-    setRows(equivQuery.data.map((e) => ({ alias_code: e.alias_code, canonical_code: e.canonical_code })))
-    setInitialised(true)
-  }
+  useEffect(() => {
+    if (!initialised && equivQuery.data) {
+      setRows(equivQuery.data.map((e) => ({ alias_code: e.alias_code, canonical_code: e.canonical_code })))
+      setInitialised(true)
+    }
+  }, [equivQuery.data, initialised])
 
   function addRow() {
     setRows((prev) => [...prev, { alias_code: '', canonical_code: '' }])
@@ -41,10 +43,10 @@ function EquivalentsPanel({ majorCode }: { majorCode: string }) {
     setSaving(true)
     setMsg(null)
     try {
-      await setProgressEquivalents(majorCode, rows.filter((r) => r.alias_code && r.canonical_code))
+      const saved = await setProgressEquivalents(majorCode, rows.filter((r) => r.alias_code && r.canonical_code))
+      setRows(saved.map((e) => ({ alias_code: e.alias_code, canonical_code: e.canonical_code })))
       setMsg({ type: 'success', text: 'Equivalents saved.' })
       qc.invalidateQueries({ queryKey: ['progress-equivalents', majorCode] })
-      setInitialised(false)
     } catch (err: unknown) {
       setMsg({ type: 'error', text: err instanceof Error ? err.message : 'Save failed.' })
     } finally {
