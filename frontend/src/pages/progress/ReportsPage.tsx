@@ -45,6 +45,32 @@ function gradeCellClass(val: string): string {
   return 'grade-cell grade-cell--failed'
 }
 
+// ─── Sort types + helpers ────────────────────────────────────────
+type SortKey = 'id' | 'name' | 'done' | 'reg' | 'rem' | 'gpa'
+
+function SortIcon({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
+  return (
+    <span style={{ marginLeft: 3, opacity: active ? 1 : 0.3, fontSize: '0.7em' }}>
+      {active ? (dir === 'asc' ? '▲' : '▼') : '▲▼'}
+    </span>
+  )
+}
+
+function sortRows(rows: StudentProgressRow[], sortBy: SortKey, sortDir: 'asc' | 'desc'): StudentProgressRow[] {
+  return [...rows].sort((a, b) => {
+    let cmp = 0
+    switch (sortBy) {
+      case 'id':   cmp = a.student_id.localeCompare(b.student_id); break
+      case 'name': cmp = a.name.localeCompare(b.name); break
+      case 'done': cmp = a.completed_credits - b.completed_credits; break
+      case 'reg':  cmp = a.registered_credits - b.registered_credits; break
+      case 'rem':  cmp = a.remaining_credits - b.remaining_credits; break
+      case 'gpa':  cmp = (a.gpa ?? -1) - (b.gpa ?? -1); break
+    }
+    return sortDir === 'desc' ? -cmp : cmp
+  })
+}
+
 // ─── Progress Table ──────────────────────────────────────────────
 function ProgressTable({
   title,
@@ -52,14 +78,29 @@ function ProgressTable({
   courses,
   onStudentClick,
   collapseMode,
+  sortBy,
+  sortDir,
+  onSort,
 }: {
   title: string
   rows: StudentProgressRow[]
   courses: string[]
   onStudentClick: (id: string) => void
   collapseMode: boolean
+  sortBy: SortKey | null
+  sortDir: 'asc' | 'desc'
+  onSort: (key: SortKey) => void
 }) {
   if (rows.length === 0) return null
+
+  const sortableTh = (key: SortKey, label: string, minWidth: number) => (
+    <th
+      style={{ minWidth, cursor: 'pointer', userSelect: 'none', whiteSpace: 'nowrap' }}
+      onClick={() => onSort(key)}
+    >
+      {label} <SortIcon active={sortBy === key} dir={sortDir} />
+    </th>
+  )
 
   return (
     <div className="panel stack mb-6">
@@ -70,13 +111,13 @@ function ProgressTable({
         <table className="premium-table progress-report-table">
           <thead>
             <tr>
-              <th style={{ minWidth: 90 }}>ID</th>
-              <th style={{ minWidth: 160 }}>Name</th>
+              {sortableTh('id', 'ID', 90)}
+              {sortableTh('name', 'Name', 160)}
               {courses.map((c) => <th key={c} style={{ minWidth: 70 }}>{c}</th>)}
-              <th style={{ minWidth: 60 }}>Done</th>
-              <th style={{ minWidth: 60 }}>Reg</th>
-              <th style={{ minWidth: 60 }}>Rem</th>
-              <th style={{ minWidth: 55 }}>GPA</th>
+              {sortableTh('done', 'Done', 60)}
+              {sortableTh('reg', 'Reg', 60)}
+              {sortableTh('rem', 'Rem', 60)}
+              {sortableTh('gpa', 'GPA', 55)}
             </tr>
           </thead>
           <tbody>
@@ -128,8 +169,21 @@ export function ReportsPage() {
   const [showAllGrades, setShowAllGrades] = useState(false)
   const [collapseMode, setCollapseMode] = useState(false)
   const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState<50 | 100 | 500>(50)
+  const [sortBy, setSortBy] = useState<SortKey | null>(null)
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc')
+  const [maxRem, setMaxRem] = useState('')
   const [search, setSearch] = useState('')
   const deferredSearch = useDeferredValue(search)
+
+  function handleSort(key: SortKey) {
+    if (sortBy === key) {
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))
+    } else {
+      setSortBy(key)
+      setSortDir('asc')
+    }
+  }
   const [exporting, setExporting] = useState(false)
   const [pushing, setPushing] = useState(false)
   const [pushMsg, setPushMsg] = useState<{ ok: boolean; text: string } | null>(null)
@@ -199,14 +253,31 @@ export function ReportsPage() {
   const reportQuery = useProgressReport(majorCode, {
     showAllGrades,
     page,
-    pageSize: 50,
+    pageSize,
     search: deferredSearch,
   })
 
   const report = reportQuery.data
   const requiredCourses = report?.required[0] ? Object.keys(report.required[0].courses) : []
   const intensiveCourses = report?.intensive[0] ? Object.keys(report.intensive[0].courses) : []
-  const totalPages = report ? Math.ceil(report.total_students / 50) : 1
+  const totalPages = report ? Math.ceil(report.total_students / pageSize) : 1
+
+  // Apply Rem ≤ filter then sort — client-side on the loaded page
+  const maxRemNum = maxRem !== '' ? parseInt(maxRem, 10) : null
+  let requiredRows = report?.required ?? []
+  let intensiveRows = report?.intensive ?? []
+
+  if (maxRemNum !== null && !isNaN(maxRemNum)) {
+    requiredRows = requiredRows.filter((r) => r.remaining_credits <= maxRemNum)
+    const allowedIds = new Set(requiredRows.map((r) => r.student_id))
+    intensiveRows = intensiveRows.filter((r) => allowedIds.has(r.student_id))
+  }
+
+  if (sortBy !== null) {
+    requiredRows = sortRows(requiredRows, sortBy, sortDir)
+    const intMap = new Map(intensiveRows.map((r) => [r.student_id, r]))
+    intensiveRows = requiredRows.flatMap((r) => (intMap.has(r.student_id) ? [intMap.get(r.student_id)!] : []))
+  }
 
   function handleSearch(val: string) {
     setSearch(val)
@@ -240,6 +311,19 @@ export function ReportsPage() {
           style={{ minWidth: 220, flex: 1 }}
         />
 
+        <label className="inline-select" title="Filter by remaining credits">
+          <span className="text-muted text-sm" style={{ whiteSpace: 'nowrap' }}>Rem ≤</span>
+          <input
+            type="number"
+            className="text-input"
+            placeholder="—"
+            value={maxRem}
+            min={0}
+            onChange={(e) => setMaxRem(e.target.value)}
+            style={{ width: 64 }}
+          />
+        </label>
+
         <button
           type="button"
           className={`toggle-pill${showAllGrades ? ' active' : ''}`}
@@ -271,6 +355,19 @@ export function ReportsPage() {
               {report.total_students} student{report.total_students !== 1 ? 's' : ''}
             </span>
           )}
+          <label className="inline-select" title="Rows per page">
+            <span className="text-muted text-sm">Show</span>
+            <select
+              className="select-input"
+              value={pageSize}
+              onChange={(e) => { setPageSize(Number(e.target.value) as 50 | 100 | 500); setPage(1) }}
+              style={{ width: 72 }}
+            >
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={500}>All</option>
+            </select>
+          </label>
           <button
             type="button"
             className="btn btn-secondary btn-sm"
@@ -386,17 +483,23 @@ export function ReportsPage() {
         <>
           <ProgressTable
             title="Required Courses"
-            rows={report.required}
+            rows={requiredRows}
             courses={requiredCourses}
             onStudentClick={(id) => navigate(`/progress/students?id=${encodeURIComponent(id)}`)}
             collapseMode={collapseMode}
+            sortBy={sortBy}
+            sortDir={sortDir}
+            onSort={handleSort}
           />
           <ProgressTable
             title="Intensive Courses"
-            rows={report.intensive}
+            rows={intensiveRows}
             courses={intensiveCourses}
             onStudentClick={(id) => navigate(`/progress/students?id=${encodeURIComponent(id)}`)}
             collapseMode={collapseMode}
+            sortBy={sortBy}
+            sortDir={sortDir}
+            onSort={handleSort}
           />
 
           {report.extra_courses.length > 0 && (
