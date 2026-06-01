@@ -25,7 +25,9 @@ from app.services.progress_processing import (
     cell_color,
     extract_primary_grade,
     process_progress_report,
+    read_progress_report,
 )
+from app.services.storage import StorageService
 
 
 def _get_major_id(session: Session, major_code: str) -> int:
@@ -310,8 +312,26 @@ def _load_progress_df(session: Session, major_code: str) -> pd.DataFrame | None:
     if not records:
         return None
     df = pd.DataFrame(records)
+    if _major_missing(df) and dv.storage_key:
+        recovered = _recover_progress_report_from_storage(dv)
+        if recovered is not None and not _major_missing(recovered):
+            df = recovered
     df['ID'] = df['ID'].astype(str).str.strip()
     return df
+
+
+def _major_missing(df: pd.DataFrame) -> bool:
+    if 'MAJOR' not in df.columns:
+        return True
+    return df['MAJOR'].fillna('').astype(str).str.strip().eq('').all()
+
+
+def _recover_progress_report_from_storage(dv: DatasetVersion) -> pd.DataFrame | None:
+    try:
+        content = StorageService().get_bytes(dv.storage_key)
+        return read_progress_report(content, dv.original_filename or 'progress_report.xlsx')
+    except Exception:
+        return None
 
 
 def _build_equiv_map(session: Session, major_code: str) -> dict[str, str]:
