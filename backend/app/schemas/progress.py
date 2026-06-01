@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -84,6 +84,7 @@ class StudentProgressRow(BaseModel):
     name: str
     major: Optional[str] = None
     courses: dict[str, str]       # course_code → display value
+    extra_courses: list[str] = Field(default_factory=list)
     completed_credits: float
     registered_credits: float
     remaining_credits: float

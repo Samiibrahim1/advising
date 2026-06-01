@@ -356,6 +356,7 @@ export type StudentProgressRow = {
   name: string
   major?: string | null
   courses: Record<string, string>
+  extra_courses?: string[]
   completed_credits: number
   registered_credits: number
   remaining_credits: number

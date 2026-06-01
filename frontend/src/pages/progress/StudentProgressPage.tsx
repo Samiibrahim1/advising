@@ -144,8 +144,8 @@ function AssignmentPanel({
     return (
       <div className="blank-slate-panel" style={{ padding: '1rem' }}>
         <p className="text-muted text-sm">
-          No extra courses in this progress report to assign. Extra courses are courses recorded
-          in the report but not found in the course configuration.
+          This student has no extra courses to assign. Extra courses are courses recorded
+          for this student but not found in the course configuration.
         </p>
       </div>
     )
@@ -203,19 +203,16 @@ function AssignmentPanel({
 function StudentDetailPanel({
   majorCode,
   student,
-  extraCourses,
 }: {
   majorCode: string
   student: StudentProgressRow
-  extraCourses: string[]
 }) {
   const qc = useQueryClient()
   const [tab, setTab] = useState<'courses' | 'assignments'>('courses')
   const [exemptionBusy, setExemptionBusy] = useState(false)
   const allCourses = Object.keys(student.courses)
 
-  // Narrow the global extra-courses list to only courses this specific student has
-  const studentExtraCourses = extraCourses.filter((c) => allCourses.includes(c))
+  const studentExtraCourses = student.extra_courses ?? []
 
   const exemptionsQuery = useExemptions(majorCode, student.student_id)
   const exemptedCourses = (exemptionsQuery.data ?? []).map((e) => e.course_code)
@@ -396,7 +393,6 @@ export function StudentProgressPage() {
   }, [assignmentTypesQuery.data, allAssignmentsQuery.data, totalStudents])
 
   const selected = students.find((s) => s.student_id === selectedId) ?? null
-  const extraCourses = reportQuery.data?.extra_courses ?? []
 
   function handleSelect(id: string) {
     setSelectedId(id)
@@ -476,7 +472,6 @@ export function StudentProgressPage() {
             <StudentDetailPanel
               majorCode={majorCode}
               student={selected}
-              extraCourses={extraCourses}
             />
           ) : (
             <div className="blank-slate-panel">

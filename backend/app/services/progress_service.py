@@ -373,7 +373,7 @@ def generate_report(
     equiv_map = _build_equiv_map(session, major_code)
     assign_map = _build_assign_map(session, major_code)
 
-    req_df, int_df, _extra_df, extra_list = process_progress_report(
+    req_df, int_df, extra_df, extra_list = process_progress_report(
         df,
         target_courses=config.get('target_courses', {}),
         intensive_courses=config.get('intensive_courses', {}),
@@ -386,6 +386,7 @@ def generate_report(
     target_courses: dict[str, int] = config.get('target_courses', {})
     intensive_courses: dict[str, int] = config.get('intensive_courses', {})
     total_students = len(req_df)
+    extra_by_student = _extra_courses_by_student(extra_df)
 
     # Search filter
     if search:
@@ -404,8 +405,8 @@ def generate_report(
     page_ids = set(req_page['ID'].tolist())
     int_page = int_df[int_df['ID'].isin(page_ids)]
 
-    required_rows = _build_student_rows(req_page, target_courses, show_all_grades)
-    intensive_rows = _build_student_rows(int_page, intensive_courses, show_all_grades)
+    required_rows = _build_student_rows(req_page, target_courses, show_all_grades, extra_by_student)
+    intensive_rows = _build_student_rows(int_page, intensive_courses, show_all_grades, extra_by_student)
 
     return ReportResponse(
         required=required_rows,
@@ -417,10 +418,25 @@ def generate_report(
     )
 
 
+def _extra_courses_by_student(extra_df: pd.DataFrame) -> dict[str, list[str]]:
+    if extra_df.empty:
+        return {}
+    course_col = 'Mapped Course' if 'Mapped Course' in extra_df.columns else 'Course'
+    grouped: dict[str, set[str]] = {}
+    for _, row in extra_df.iterrows():
+        student_id = str(row.get('ID', '')).strip()
+        course_code = str(row.get(course_col, '')).strip().upper()
+        if not student_id or not course_code:
+            continue
+        grouped.setdefault(student_id, set()).add(course_code)
+    return {student_id: sorted(courses) for student_id, courses in grouped.items()}
+
+
 def _build_student_rows(
     df: pd.DataFrame,
     courses_dict: dict[str, int],
     show_all_grades: bool,
+    extra_by_student: dict[str, list[str]] | None = None,
 ) -> list[StudentProgressRow]:
     if df.empty:
         return []
@@ -445,6 +461,7 @@ def _build_student_rows(
                 name=str(row['NAME']),
                 major=str(row.get('MAJOR', '') or '').strip() or None,
                 courses=courses,
+                extra_courses=(extra_by_student or {}).get(str(row['ID']), []),
                 completed_credits=credits['completed'],
                 registered_credits=credits['registered'],
                 remaining_credits=credits['remaining'],
