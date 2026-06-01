@@ -140,19 +140,16 @@ function AssignmentPanel({
     )
   }
 
-  if (extraCourses.length === 0 && exemptedCourses.length === 0) {
-    return (
-      <div className="blank-slate-panel" style={{ padding: '1rem' }}>
-        <p className="text-muted text-sm">
-          This student has no extra courses to assign. Extra courses are courses recorded
-          for this student but not found in the course configuration.
-        </p>
-      </div>
-    )
-  }
-
   return (
     <div>
+      {types.length > 0 && extraCourses.length === 0 && (
+        <div className="blank-slate-panel" style={{ padding: '0.75rem 1rem', marginBottom: '0.75rem' }}>
+          <p className="text-muted text-sm" style={{ margin: 0 }}>
+            This student has no extra courses to assign. Assignment slots remain visible so saved values can be reviewed or cleared.
+          </p>
+        </div>
+      )}
+
       {types.map((at) => (
         <AssignmentSlot
           key={at.id}
