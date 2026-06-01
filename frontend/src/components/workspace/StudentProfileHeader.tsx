@@ -60,6 +60,9 @@ export function StudentProfileHeader({
           <p className="text-muted" style={{ margin: 0, fontSize: '0.82rem' }}>
             <span className="mono">{student.student_id}</span>
           </p>
+          <p className="text-muted" style={{ margin: '2px 0 0', fontSize: '0.78rem' }}>
+            Major: {student.major || '—'}
+          </p>
         </div>
 
         {/* Stats */}

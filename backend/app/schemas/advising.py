@@ -9,6 +9,7 @@ from pydantic import BaseModel
 class StudentSearchItem(BaseModel):
     student_id: str
     student_name: str
+    major: Optional[str] = None
     standing: str
     total_credits: float
     remaining_credits: float
@@ -47,6 +48,7 @@ class EligibilityCourse(BaseModel):
 class StudentEligibilityResponse(BaseModel):
     student_id: str
     student_name: str
+    major: Optional[str] = None
     standing: str
     credits_completed: float
     credits_registered: float

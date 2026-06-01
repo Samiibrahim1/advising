@@ -82,6 +82,7 @@ class ExemptionOut(BaseModel):
 class StudentProgressRow(BaseModel):
     student_id: str
     name: str
+    major: Optional[str] = None
     courses: dict[str, str]       # course_code → display value
     completed_credits: float
     registered_credits: float

@@ -46,7 +46,7 @@ function gradeCellClass(val: string): string {
 }
 
 // ─── Sort types + helpers ────────────────────────────────────────
-type SortKey = 'id' | 'name' | 'done' | 'reg' | 'rem' | 'gpa'
+type SortKey = 'id' | 'name' | 'major' | 'done' | 'reg' | 'rem' | 'gpa'
 
 function SortIcon({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
   return (
@@ -62,6 +62,7 @@ function sortRows(rows: StudentProgressRow[], sortBy: SortKey, sortDir: 'asc' | 
     switch (sortBy) {
       case 'id':   cmp = a.student_id.localeCompare(b.student_id); break
       case 'name': cmp = a.name.localeCompare(b.name); break
+      case 'major': cmp = (a.major ?? '').localeCompare(b.major ?? ''); break
       case 'done': cmp = a.completed_credits - b.completed_credits; break
       case 'reg':  cmp = a.registered_credits - b.registered_credits; break
       case 'rem':  cmp = a.remaining_credits - b.remaining_credits; break
@@ -113,6 +114,7 @@ function ProgressTable({
             <tr>
               {sortableTh('id', 'ID', 90)}
               {sortableTh('name', 'Name', 160)}
+              {sortableTh('major', 'Major', 120)}
               {courses.map((c) => <th key={c} style={{ minWidth: 70 }}>{c}</th>)}
               {sortableTh('done', 'Done', 60)}
               {sortableTh('reg', 'Reg', 60)}
@@ -133,6 +135,7 @@ function ProgressTable({
                   </button>
                 </td>
                 <td>{row.name}</td>
+                <td>{row.major || '—'}</td>
                 {courses.map((c) => {
                   const raw = row.courses[c] ?? 'NR'
                   if (collapseMode) {
@@ -552,4 +555,3 @@ export function ReportsPage() {
     </section>
   )
 }
-

@@ -71,17 +71,26 @@ def read_progress_report(content: bytes, filename: str) -> pd.DataFrame:
 def _normalise_long(df: pd.DataFrame) -> pd.DataFrame:
     id_col = _find_col(df, ('ID', 'STUDENT ID'))
     name_col = _find_col(df, ('NAME', 'Name'))
+    major_col = _find_col(df, ('MAJOR', 'Major', 'major'))
     if id_col is None:
         raise ValueError("Missing ID column. Expected 'ID' or 'STUDENT ID'.")
     if name_col is None:
         raise ValueError("Missing NAME column. Expected 'NAME' or 'Name'.")
-    result = df[[id_col, name_col, 'Course', 'Grade', 'Year', 'Semester']].copy()
-    return result.rename(columns={id_col: 'ID', name_col: 'NAME'})
+    columns = [id_col, name_col]
+    if major_col is not None:
+        columns.append(major_col)
+    columns.extend(['Course', 'Grade', 'Year', 'Semester'])
+    result = df[columns].copy()
+    rename_map = {id_col: 'ID', name_col: 'NAME'}
+    if major_col is not None:
+        rename_map[major_col] = 'MAJOR'
+    return result.rename(columns=rename_map)
 
 
 def _transform_wide(df: pd.DataFrame) -> pd.DataFrame:
     id_col = _find_col(df, ('ID', 'STUDENT ID'))
     name_col = _find_col(df, ('NAME', 'Name'))
+    major_col = _find_col(df, ('MAJOR', 'Major', 'major'))
     if id_col is None:
         raise ValueError("Wide-format: missing 'ID' or 'STUDENT ID' column.")
     if name_col is None:
@@ -118,8 +127,14 @@ def _transform_wide(df: pd.DataFrame) -> pd.DataFrame:
         melted = melted.rename(columns={id_col: 'ID'})
     if name_col != 'NAME':
         melted = melted.rename(columns={name_col: 'NAME'})
+    if major_col is not None and major_col != 'MAJOR':
+        melted = melted.rename(columns={major_col: 'MAJOR'})
 
-    return melted[['ID', 'NAME', 'Course', 'Grade', 'Year', 'Semester']].drop_duplicates()
+    columns = ['ID', 'NAME']
+    if major_col is not None:
+        columns.append('MAJOR')
+    columns.extend(['Course', 'Grade', 'Year', 'Semester'])
+    return melted[columns].drop_duplicates()
 
 
 def read_course_config(content: bytes, filename: str) -> dict[str, Any]:
@@ -455,8 +470,11 @@ def process_progress_report(
 
     df['ProcessedValue'] = df.apply(get_processed, axis=1)
 
-    # Preserve full roster so students without course rows still appear
-    roster_df = df[['ID', 'NAME']].drop_duplicates()
+    # Preserve full roster so students without course rows still appear.
+    roster_cols = ['ID', 'NAME']
+    if 'MAJOR' in df.columns:
+        roster_cols.append('MAJOR')
+    roster_df = df[roster_cols].drop_duplicates(subset=['ID', 'NAME'])
 
     # 5) Split
     target_mask = df['Mapped Course'].isin(target_courses)
@@ -492,8 +510,11 @@ def process_progress_report(
         else:
             int_pivot[course] = int_pivot[course].fillna('NR')
 
-    result_req = req_pivot[['ID', 'NAME'] + list(target_courses.keys())]
-    result_int = int_pivot[['ID', 'NAME'] + list(intensive_courses.keys())]
+    base_cols = ['ID', 'NAME']
+    if 'MAJOR' in roster_df.columns:
+        base_cols.append('MAJOR')
+    result_req = req_pivot[base_cols + list(target_courses.keys())]
+    result_int = int_pivot[base_cols + list(intensive_courses.keys())]
 
     # 8) Remove assigned courses from extras
     if per_student_assignments:

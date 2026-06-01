@@ -56,25 +56,42 @@ def load_progress_excel(content: bytes | BytesIO | str) -> pd.DataFrame:
 
     int_df = sheets[int_key].copy()
     base_columns = ['ID', 'NAME']
+    metadata_columns = ['MAJOR']
     numeric_columns = ['# of Credits Completed', '# Registered', '# Remaining', 'Total Credits', 'GPA']
     for column in base_columns:
         if column not in req_df.columns:
             req_df[column] = None
         if column not in int_df.columns:
             int_df[column] = None
+    for column in metadata_columns:
+        if column not in req_df.columns:
+            req_df[column] = None
+        if column not in int_df.columns:
+            int_df[column] = None
 
     def course_columns(df: pd.DataFrame) -> list[str]:
-        return [column for column in df.columns if column not in base_columns + numeric_columns]
+        return [column for column in df.columns if column not in base_columns + metadata_columns + numeric_columns]
 
     req_courses = course_columns(req_df)
     int_courses = course_columns(int_df)
     merged = pd.merge(
-        req_df[base_columns + req_courses + [column for column in numeric_columns if column in req_df.columns]],
-        int_df[base_columns + int_courses + [column for column in numeric_columns if column in int_df.columns]],
+        req_df[base_columns + metadata_columns + req_courses + [column for column in numeric_columns if column in req_df.columns]],
+        int_df[base_columns + metadata_columns + int_courses + [column for column in numeric_columns if column in int_df.columns]],
         on=base_columns,
         how='outer',
         suffixes=('_req', '_int'),
     )
+    for column in metadata_columns:
+        req_col = f'{column}_req'
+        int_col = f'{column}_int'
+        if req_col in merged.columns and int_col in merged.columns:
+            left = merged[req_col]
+            merged[column] = left.where(left.notna() & (left.astype(str).str.strip() != ''), merged[int_col])
+            merged.drop(columns=[req_col, int_col], inplace=True)
+        elif req_col in merged.columns:
+            merged[column] = merged.pop(req_col)
+        elif int_col in merged.columns:
+            merged[column] = merged.pop(int_col)
     for column in numeric_columns:
         req_col = f'{column}_req'
         int_col = f'{column}_int'

@@ -23,7 +23,7 @@ async function authedFetch(path: string, init?: RequestInit) {
 
 const DATASET_LABELS: Record<string, string> = {
   courses: 'Course Catalog (courses_table.xlsx)',
-  progress: 'Student Progress Report',
+  progress: 'Advising Progress Dataset',
   email_roster: 'Email Roster',
 }
 
@@ -187,6 +187,10 @@ export function AdviserSettingsPage() {
   // ── Data file upload ─────────────────────────────────────────────────────
   async function handleUpload() {
     if (!uploadFile) return
+    if (uploadType === 'progress') {
+      showMsg('error', 'Use Academic Progress, Reports, Push to Advising to update the advising progress dataset.')
+      return
+    }
     setUploading(true)
     try {
       const formData = new FormData()
@@ -295,20 +299,21 @@ export function AdviserSettingsPage() {
         <div className="panel stack">
           <h3 style={{ margin: 0, marginBottom: '0.4rem' }}>
             Data Files{' '}
-            <Tooltip text="Upload the latest course catalog, student progress report, or email roster. Changes take effect immediately for this program." />
+            <Tooltip text="Upload the latest course catalog or email roster. Advising progress is normally generated from Academic Progress after mapping." />
           </h3>
           <p className="text-sm text-muted" style={{ margin: '0 0 0.85rem' }}>
-            Upload or replace program data files. Previous versions are archived.
+            Upload or replace program data files. Advising progress is normally generated from Academic Progress, Reports, Push to Advising.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginBottom: '0.85rem' }}>
             {Object.entries(DATASET_LABELS).map(([type, label]) => {
               const latestVersion = versions.data?.find(v => v.dataset_type === type)
               const isSelected = uploadType === type
+              const isProgress = type === 'progress'
               return (
                 <label
                   key={type}
-                  onClick={() => setUploadType(type)}
+                  onClick={() => { if (!isProgress) setUploadType(type) }}
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'auto 1fr',
@@ -317,8 +322,9 @@ export function AdviserSettingsPage() {
                     padding: '0.65rem 0.9rem',
                     borderRadius: '10px',
                     border: `2px solid ${isSelected ? 'var(--accent)' : 'var(--line)'}`,
-                    cursor: 'pointer',
+                    cursor: isProgress ? 'default' : 'pointer',
                     background: isSelected ? 'rgba(30,111,92,0.05)' : '#fafafa',
+                    opacity: isProgress ? 0.82 : 1,
                     transition: 'border-color 0.15s, background 0.15s',
                   }}
                 >
@@ -327,11 +333,17 @@ export function AdviserSettingsPage() {
                     name="uploadType"
                     value={type}
                     checked={isSelected}
-                    onChange={() => setUploadType(type)}
-                    style={{ accentColor: 'var(--accent)', marginTop: '3px', cursor: 'pointer' }}
+                    disabled={isProgress}
+                    onChange={() => { if (!isProgress) setUploadType(type) }}
+                    style={{ accentColor: 'var(--accent)', marginTop: '3px', cursor: isProgress ? 'not-allowed' : 'pointer' }}
                   />
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
                     <div style={{ fontSize: '0.875rem', fontWeight: isSelected ? 600 : 400, color: 'var(--ink)' }}>{label}</div>
+                    {isProgress && (
+                      <div style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>
+                        Read-only here. Update from Academic Progress, Reports, Push to Advising.
+                      </div>
+                    )}
                     {latestVersion ? (
                       <div style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>
                         Last: <span style={{ fontFamily: 'monospace' }}>{latestVersion.original_filename ?? '—'}</span>

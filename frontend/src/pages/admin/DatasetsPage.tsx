@@ -9,7 +9,7 @@ const TEMPLATED_TYPES = new Set(['courses', 'progress', 'email_roster'])
 
 const TYPE_LABELS: Record<string, string> = {
   courses: 'Course Catalog',
-  progress: 'Progress Report',
+  progress: 'Advising Progress Dataset',
   advising_selections: 'Advising Selections',
   email_roster: 'Email Roster',
 }
@@ -135,6 +135,11 @@ export function DatasetsPage() {
             <button type="button" className="btn-sm btn-outline" onClick={() => downloadBlob(`/datasets/templates/${datasetType}`, `${datasetType}_template.xlsx`)}>↓ Template</button>
           )}
         </div>
+        {datasetType === 'progress' && (
+          <p className="text-muted text-sm" style={{ margin: '0.5rem 0 0' }}>
+            Manual upload overrides the advising progress dataset. The normal workflow is Academic Progress, Reports, Push to Advising.
+          </p>
+        )}
       </form>
 
       {/* Version history */}

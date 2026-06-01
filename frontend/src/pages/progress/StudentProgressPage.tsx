@@ -252,6 +252,7 @@ function StudentDetailPanel({
         <div>
           <div className="eyebrow text-muted text-xs mb-1">{student.student_id}</div>
           <h3 style={{ margin: 0, fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.1rem' }}>{student.name}</h3>
+          <div className="text-muted text-xs" style={{ marginTop: '2px' }}>Major: {student.major || '—'}</div>
         </div>
         <div className="flex-row gap-3">
           <div className="stat-mini">
@@ -462,6 +463,7 @@ export function StudentProgressPage() {
                 >
                   <span className="font-semibold" style={{ fontSize: '0.88rem' }}>{s.name}</span>
                   <span className="text-muted text-xs">{s.student_id}</span>
+                  <span className="text-muted text-xs">{s.major || 'Major -'}</span>
                 </button>
               </li>
             ))}

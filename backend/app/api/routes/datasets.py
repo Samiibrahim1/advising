@@ -85,6 +85,42 @@ router = APIRouter(prefix='/datasets', tags=['datasets'])
 _MAX_UPLOAD_BYTES = 50 * 1024 * 1024  # 50 MB
 
 
+def _generated_dataset_workbook(version: DatasetVersion) -> bytes:
+    """Recreate a usable workbook from parsed DB payload when the original blob is gone."""
+    import pandas as pd
+
+    records = (version.parsed_payload or {}).get('records', [])
+    buf = BytesIO()
+    with pd.ExcelWriter(buf, engine='openpyxl') as writer:
+        if version.dataset_type == 'course_config':
+            config = records[0] if records else {}
+            rows: list[dict[str, object]] = []
+            for course, credits in (config.get('target_courses') or {}).items():
+                rule = ((config.get('target_rules') or {}).get(course) or [{}])[0]
+                rows.append({
+                    'Course': course,
+                    'Type': 'required',
+                    'Credits': credits,
+                    'PassingGrades': rule.get('PassingGrades', ''),
+                })
+            for course, credits in (config.get('intensive_courses') or {}).items():
+                rule = ((config.get('intensive_rules') or {}).get(course) or [{}])[0]
+                rows.append({
+                    'Course': course,
+                    'Type': 'intensive',
+                    'Credits': credits,
+                    'PassingGrades': rule.get('PassingGrades', ''),
+                })
+            pd.DataFrame(rows, columns=['Course', 'Type', 'Credits', 'PassingGrades']).to_excel(
+                writer, sheet_name='course_config', index=False
+            )
+        else:
+            sheet_name = version.dataset_type[:31] or 'dataset'
+            pd.DataFrame(records).to_excel(writer, sheet_name=sheet_name, index=False)
+    buf.seek(0)
+    return buf.read()
+
+
 @router.get('/{major_code}', response_model=list[DatasetVersionResponse])
 def list_dataset_versions(major_code: str, user: User = Depends(require_staff), db: Session = Depends(get_db)) -> list[DatasetVersion]:
     ensure_major_access(major_code, db, user)
@@ -126,11 +162,15 @@ def download_current_file(major_code: str, dataset_type: str, user: User = Depen
         raise HTTPException(status_code=404, detail='No active file for this dataset type.')
     storage = StorageService()
     try:
+        if not version.storage_key:
+            raise FileNotFoundError('Dataset version has no storage key.')
         content = storage.get_bytes(version.storage_key)
+        filename = version.original_filename or f'{dataset_type}.xlsx'
+        media_type = 'text/csv' if filename.lower().endswith('.csv') else 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail='File no longer available. Please re-upload the dataset.')
-    filename = version.original_filename or f'{dataset_type}.xlsx'
-    media_type = 'text/csv' if filename.lower().endswith('.csv') else 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        content = _generated_dataset_workbook(version)
+        filename = f'generated_{dataset_type}_{version.version_label}.xlsx'
+        media_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     return StreamingResponse(
         iter([content]),
         media_type=media_type,

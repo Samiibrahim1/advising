@@ -41,6 +41,7 @@ export type CourseOfferingRecommendation = {
 export type StudentSearchItem = {
   student_id: string
   student_name: string
+  major?: string | null
   standing: string
   total_credits: number
   remaining_credits: number
@@ -79,6 +80,7 @@ export type EligibilityCourse = {
 export type StudentEligibility = {
   student_id: string
   student_name: string
+  major?: string | null
   standing: string
   credits_completed: number
   credits_registered: number
@@ -352,6 +354,7 @@ export type ProgressAssignment = {
 export type StudentProgressRow = {
   student_id: string
   name: string
+  major?: string | null
   courses: Record<string, string>
   completed_credits: number
   registered_credits: number

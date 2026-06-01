@@ -327,7 +327,7 @@ export function WorkspacePage() {
                   onMouseDown={() => selectStudent(s.student_id, s.student_name)}
                 >
                   <span className="combobox-item-name">{s.student_name}</span>
-                  <span className="combobox-item-id">{s.student_id}</span>
+                  <span className="combobox-item-id">{s.student_id}{s.major ? ` · ${s.major}` : ''}</span>
                 </button>
               ))
             )}

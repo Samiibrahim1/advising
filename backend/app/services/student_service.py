@@ -66,6 +66,7 @@ def search_students(session: Session, major_code: str, query: Optional[str] = No
         results.append({
             'student_id': str(row.get('ID', '')),
             'student_name': str(row.get('NAME', '')),
+            'major': str(row.get('MAJOR', '') or '').strip() or None,
             'standing': str(row.get('Standing', '')),
             'total_credits': float(row.get('Total Credits', 0) or 0),
             'remaining_credits': float(row.get('Remaining Credits', 0) or 0),
@@ -235,6 +236,7 @@ def student_eligibility(session: Session, major_code: str, student_id: str) -> S
     return StudentEligibilityResponse(
         student_id=str(student_row.get('ID')),
         student_name=str(student_row.get('NAME', '')),
+        major=str(student_row.get('MAJOR', '') or '').strip() or None,
         standing=standing,
         credits_completed=credits_completed,
         credits_registered=credits_registered,
