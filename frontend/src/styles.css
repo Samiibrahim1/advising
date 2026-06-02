@@ -2856,6 +2856,14 @@ thead .sticky-col {
    ASSIGNMENT SLOTS — per-student elective assignment rows
    ============================================================ */
 
+.assignment-notice {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid rgba(30,111,92,0.18);
+  border-radius: 12px;
+  background: rgba(30,111,92,0.04);
+}
+
 .assignment-slot {
   display: flex;
   align-items: center;

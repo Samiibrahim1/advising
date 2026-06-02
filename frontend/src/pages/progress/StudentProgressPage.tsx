@@ -143,7 +143,7 @@ function AssignmentPanel({
   return (
     <div>
       {types.length > 0 && extraCourses.length === 0 && (
-        <div className="blank-slate-panel" style={{ padding: '0.75rem 1rem', marginBottom: '0.75rem' }}>
+        <div className="assignment-notice">
           <p className="text-muted text-sm" style={{ margin: 0 }}>
             This student has no extra courses to assign. Assignment slots remain visible so saved values can be reviewed or cleared.
           </p>
