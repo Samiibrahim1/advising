@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import io
+import json
 from typing import Optional
 
 import openpyxl
@@ -222,38 +223,109 @@ def reset_all_assignments(session: Session, major_code: str) -> int:
 # ──────────────────────────────────────────────────────────────────
 
 def upload_progress_report(
-    session: Session, major_code: str, filename: str, content: bytes, user_id: int
+    session: Session,
+    major_code: str,
+    filename: str,
+    content: bytes,
+    user_id: int,
+    source_majors: Optional[list[str]] = None,
+    cohort_years: Optional[list[str]] = None,
 ) -> dict:
     """Parse, validate, and store a progress report. Returns summary."""
-    # Validation is done inside _parse_dataset → read_progress_report; raises ValueError on failure.
+    from app.services.progress_processing import read_progress_report
+
+    parsed_df = read_progress_report(content, filename)
+    major_options = _major_options(parsed_df)
+    cohort_options = _cohort_options(parsed_df)
+    requires_major_selection = len(major_options) > 0
+    selected_majors = _normalize_source_majors(source_majors)
+    selected_cohorts = _normalize_cohort_years(cohort_years)
+    if requires_major_selection and not selected_majors:
+        raise ValueError('Select at least one source major before uploading this progress report.')
+
+    upload_content = content
+    metadata: dict[str, object] = {
+        'source_major_options': major_options,
+        'cohort_options': cohort_options,
+        'pre_filter_student_count': int(parsed_df['ID'].astype(str).nunique()) if 'ID' in parsed_df.columns else 0,
+        'pre_filter_row_count': int(len(parsed_df)),
+        'selected_cohort_years': [],
+    }
+    filtered_df = parsed_df
+    if selected_majors:
+        available_majors = {str(option.get('major', '')).strip().casefold(): str(option.get('major', '')).strip() for option in major_options}
+        metadata['selected_source_majors'] = sorted({available_majors[key] for key in selected_majors.keys() if key in available_majors})
+        filtered_df = _filter_by_source_majors(filtered_df, selected_majors)
+    if selected_cohorts:
+        available_cohorts = {str(option.get('year', '')).strip() for option in cohort_options}
+        metadata['selected_cohort_years'] = sorted(selected_cohorts & available_cohorts)
+        filtered_df = _filter_by_cohort_years(filtered_df, selected_cohorts)
+    if selected_majors or selected_cohorts:
+        if filtered_df.empty:
+            raise ValueError('Selected source major/cohort filter(s) matched no rows in this progress report.')
+        upload_content = _progress_report_bytes(filtered_df)
+        metadata['post_filter_student_count'] = int(filtered_df['ID'].astype(str).nunique())
+        metadata['post_filter_row_count'] = int(len(filtered_df))
+
     version = upload_dataset(
         session,
         major_code=major_code,
         dataset_type='progress_report',
         filename=filename,
-        content=content,
+        content=upload_content,
         user_id=user_id,
     )
+    version.metadata_json = {**(version.metadata_json or {}), **metadata}
+    session.commit()
+    session.refresh(version)
     records = version.parsed_payload.get('records', [])
     ids = {r.get('ID') for r in records if r.get('ID')}
     return {'student_count': len(ids), 'row_count': len(records)}
 
 
-def preview_progress_upload(session: Session, major_code: str, content: bytes) -> dict:
+def preview_progress_upload(
+    session: Session,
+    major_code: str,
+    content: bytes,
+    source_majors: Optional[list[str]] = None,
+    cohort_years: Optional[list[str]] = None,
+) -> dict:
     """Parse an incoming progress report and diff it against the current active version. No data is saved."""
     from app.services.progress_processing import read_progress_report
     try:
         incoming_df = read_progress_report(content, 'preview.xlsx')
     except ValueError as exc:
         raise ValueError(str(exc)) from exc
+    major_options = _major_options(incoming_df)
+    cohort_options = _cohort_options(incoming_df)
+    defaults = _active_progress_filter_defaults(session, major_code, major_options, cohort_options)
+    selected_majors = _normalize_source_majors(
+        defaults['default_source_majors'] if source_majors is None else source_majors
+    )
+    selected_cohorts = _normalize_cohort_years(
+        defaults['default_cohort_years'] if cohort_years is None else cohort_years
+    )
+    if selected_majors:
+        incoming_df = _filter_by_source_majors(incoming_df, selected_majors)
+    if selected_cohorts:
+        incoming_df = _filter_by_cohort_years(incoming_df, selected_cohorts)
     incoming_ids = set(incoming_df['ID'].astype(str).unique()) if 'ID' in incoming_df.columns else set()
-    current_df = _load_progress_df(session, major_code)
+    try:
+        current_df = _load_progress_df(session, major_code)
+    except ValueError:
+        current_df = None
     if current_df is None:
         return {
             'new_students': len(incoming_ids),
             'removed_students': 0,
             'grade_changes': 0,
             'total_students': len(incoming_ids),
+            'total_rows': int(len(incoming_df)),
+            'requires_major_selection': len(major_options) > 0,
+            'requires_cohort_selection': False,
+            'major_options': major_options,
+            'cohort_options': cohort_options,
+            **defaults,
         }
     current_ids = set(current_df['ID'].astype(str).unique())
     new_ids = incoming_ids - current_ids
@@ -270,7 +342,143 @@ def preview_progress_upload(session: Session, major_code: str, content: bytes) -
         'removed_students': len(removed_ids),
         'grade_changes': grade_changes,
         'total_students': len(incoming_ids),
+        'total_rows': int(len(incoming_df)),
+        'requires_major_selection': len(major_options) > 0,
+        'requires_cohort_selection': False,
+        'major_options': major_options,
+        'cohort_options': cohort_options,
+        **defaults,
     }
+
+
+def parse_source_majors(raw: Optional[str]) -> list[str]:
+    if not raw:
+        return []
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError('source_majors must be a JSON array.') from exc
+    if not isinstance(parsed, list):
+        raise ValueError('source_majors must be a JSON array.')
+    return [str(item) for item in parsed if str(item).strip()]
+
+
+def parse_cohort_years(raw: Optional[str]) -> list[str]:
+    if not raw:
+        return []
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError('cohort_years must be a JSON array.') from exc
+    if not isinstance(parsed, list):
+        raise ValueError('cohort_years must be a JSON array.')
+    return [str(item).strip() for item in parsed if str(item).strip()]
+
+
+def _normalize_source_majors(source_majors: Optional[list[str]]) -> dict[str, str]:
+    normalized: dict[str, str] = {}
+    for major in source_majors or []:
+        value = str(major).strip()
+        if value:
+            normalized[value.casefold()] = value
+    return normalized
+
+
+def _normalize_cohort_years(cohort_years: Optional[list[str]]) -> set[str]:
+    return {str(year).strip() for year in cohort_years or [] if str(year).strip().isdigit() and len(str(year).strip()) == 4}
+
+
+def _major_options(df: pd.DataFrame) -> list[dict[str, object]]:
+    if 'MAJOR' not in df.columns:
+        return []
+    working = df.copy()
+    working['MAJOR'] = working['MAJOR'].fillna('').astype(str).str.strip()
+    working = working[working['MAJOR'] != '']
+    if working.empty:
+        return []
+    options: list[dict[str, object]] = []
+    for major, group in working.groupby('MAJOR', sort=True):
+        options.append({
+            'major': str(major),
+            'student_count': int(group['ID'].astype(str).nunique()) if 'ID' in group.columns else 0,
+            'row_count': int(len(group)),
+        })
+    return options
+
+
+def _cohort_year_series(df: pd.DataFrame) -> pd.Series:
+    if 'ID' not in df.columns:
+        return pd.Series(dtype=str)
+    ids = df['ID'].fillna('').astype(str).str.strip()
+    years = ids.str.slice(0, 4)
+    return years.where(years.str.fullmatch(r'\d{4}'), '')
+
+
+def _cohort_options(df: pd.DataFrame) -> list[dict[str, object]]:
+    if 'ID' not in df.columns:
+        return []
+    working = df.copy()
+    working['_cohort_year'] = _cohort_year_series(working)
+    working = working[working['_cohort_year'] != '']
+    if working.empty:
+        return []
+    options: list[dict[str, object]] = []
+    for year, group in working.groupby('_cohort_year', sort=True):
+        options.append({
+            'year': str(year),
+            'student_count': int(group['ID'].astype(str).nunique()),
+            'row_count': int(len(group)),
+        })
+    return options
+
+
+def _active_progress_filter_defaults(
+    session: Session,
+    major_code: str,
+    major_options: list[dict[str, object]],
+    cohort_options: list[dict[str, object]],
+) -> dict[str, list[str]]:
+    try:
+        dv = get_active_dataset(session, major_code, 'progress_report')
+    except ValueError:
+        dv = None
+    metadata = dv.metadata_json if dv and dv.metadata_json else {}
+    available_majors = {str(option.get('major', '')).strip().casefold(): str(option.get('major', '')).strip() for option in major_options}
+    available_cohorts = {str(option.get('year', '')).strip() for option in cohort_options}
+    default_source_majors = []
+    for value in metadata.get('selected_source_majors', []) or []:
+        key = str(value).strip().casefold()
+        if key in available_majors:
+            default_source_majors.append(available_majors[key])
+    default_cohort_years = []
+    for value in metadata.get('selected_cohort_years', []) or []:
+        year = str(value).strip()
+        if year in available_cohorts:
+            default_cohort_years.append(year)
+    return {
+        'default_source_majors': sorted(set(default_source_majors)),
+        'default_cohort_years': sorted(set(default_cohort_years)),
+    }
+
+
+def _filter_by_source_majors(df: pd.DataFrame, selected_majors: dict[str, str]) -> pd.DataFrame:
+    if 'MAJOR' not in df.columns:
+        return df
+    major_key = df['MAJOR'].fillna('').astype(str).str.strip().str.casefold()
+    return df[major_key.isin(selected_majors.keys())].reset_index(drop=True)
+
+
+def _filter_by_cohort_years(df: pd.DataFrame, selected_cohorts: set[str]) -> pd.DataFrame:
+    if 'ID' not in df.columns:
+        return df
+    return df[_cohort_year_series(df).isin(selected_cohorts)].reset_index(drop=True)
+
+
+def _progress_report_bytes(df: pd.DataFrame) -> bytes:
+    buf = io.BytesIO()
+    with pd.ExcelWriter(buf, engine='openpyxl') as writer:
+        df.to_excel(writer, sheet_name='Progress Report', index=False)
+    return buf.getvalue()
 
 
 def upload_course_config(

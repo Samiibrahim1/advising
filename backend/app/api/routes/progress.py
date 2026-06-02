@@ -3,7 +3,7 @@ from __future__ import annotations
 import io
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, Form, HTTPException, Query, UploadFile
 from fastapi.responses import Response, StreamingResponse
 from sqlalchemy.orm import Session
 
@@ -39,8 +39,10 @@ from app.services.progress_service import (
     list_assignments,
     list_equivalents,
     list_exemptions,
+    parse_cohort_years,
     preview_progress_upload,
     push_progress_to_advising,
+    parse_source_majors,
     remove_exemption,
     replace_equivalents,
     reset_all_assignments,
@@ -131,6 +133,8 @@ def get_status(
 def preview_progress(
     major_code: str,
     file: UploadFile,
+    source_majors: Optional[str] = Form(default=None),
+    cohort_years: Optional[str] = Form(default=None),
     user: User = Depends(require_staff),
     db: Session = Depends(get_db),
 ):
@@ -138,7 +142,13 @@ def preview_progress(
     ensure_major_access(major_code, db, user)
     content = file.file.read()
     try:
-        return preview_progress_upload(db, major_code, content)
+        return preview_progress_upload(
+            db,
+            major_code,
+            content,
+            None if source_majors is None else parse_source_majors(source_majors),
+            None if cohort_years is None else parse_cohort_years(cohort_years),
+        )
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
@@ -147,13 +157,23 @@ def preview_progress(
 def upload_progress(
     major_code: str,
     file: UploadFile,
+    source_majors: Optional[str] = Form(default=None),
+    cohort_years: Optional[str] = Form(default=None),
     user: User = Depends(require_staff),
     db: Session = Depends(get_db),
 ):
     ensure_major_access(major_code, db, user)
     content = file.file.read()
     try:
-        result = upload_progress_report(db, major_code, file.filename or 'upload', content, user.id)
+        result = upload_progress_report(
+            db,
+            major_code,
+            file.filename or 'upload',
+            content,
+            user.id,
+            parse_source_majors(source_majors),
+            parse_cohort_years(cohort_years),
+        )
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     return result

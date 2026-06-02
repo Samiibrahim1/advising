@@ -491,19 +491,49 @@ export function createPeriod(payload: { major_code: string; semester: string; ye
   })
 }
 
-export async function uploadProgressReport(majorCode: string, file: File) {
+export type ProgressMajorOption = {
+  major: string
+  student_count: number
+  row_count: number
+}
+
+export type ProgressCohortOption = {
+  year: string
+  student_count: number
+  row_count: number
+}
+
+export type ProgressUploadPreview = {
+  new_students: number
+  removed_students: number
+  grade_changes: number
+  total_students: number
+  total_rows: number
+  requires_major_selection: boolean
+  requires_cohort_selection: boolean
+  major_options: ProgressMajorOption[]
+  cohort_options: ProgressCohortOption[]
+  default_source_majors: string[]
+  default_cohort_years: string[]
+}
+
+export async function uploadProgressReport(majorCode: string, file: File, sourceMajors?: string[], cohortYears?: string[]) {
   const fd = new FormData()
   fd.append('file', file)
+  if (sourceMajors !== undefined) fd.append('source_majors', JSON.stringify(sourceMajors))
+  if (cohortYears !== undefined) fd.append('cohort_years', JSON.stringify(cohortYears))
   return apiFetch<{ student_count: number; row_count: number }>(`/progress/${majorCode}/upload/progress-report`, {
     method: 'POST',
     body: fd,
   })
 }
 
-export async function previewProgressReport(majorCode: string, file: File) {
+export async function previewProgressReport(majorCode: string, file: File, sourceMajors?: string[], cohortYears?: string[]) {
   const fd = new FormData()
   fd.append('file', file)
-  return apiFetch<{ new_students: number; removed_students: number; grade_changes: number; total_students: number }>(
+  if (sourceMajors !== undefined) fd.append('source_majors', JSON.stringify(sourceMajors))
+  if (cohortYears !== undefined) fd.append('cohort_years', JSON.stringify(cohortYears))
+  return apiFetch<ProgressUploadPreview>(
     `/progress/${majorCode}/upload/progress-report/preview`,
     { method: 'POST', body: fd },
   )

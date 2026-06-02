@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useProgressStatus, useDatasetVersions } from '../../lib/hooks'
-import { uploadProgressReport, previewProgressReport, uploadCourseConfig, API_BASE_URL } from '../../lib/api'
+import { uploadProgressReport, previewProgressReport, uploadCourseConfig, API_BASE_URL, type ProgressUploadPreview } from '../../lib/api'
 import { useMajorContext } from '../../lib/MajorContext'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -90,7 +90,10 @@ export function UploadPage() {
   const [ccLoading, setCcLoading] = useState(false)
   const [prMsg, setPrMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [ccMsg, setCcMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
-  const [prPreview, setPrPreview] = useState<{ new_students: number; removed_students: number; grade_changes: number; total_students: number; _file: File } | null>(null)
+  const [prPreview, setPrPreview] = useState<(ProgressUploadPreview & { _file: File }) | null>(null)
+  const [prPreviewRefreshing, setPrPreviewRefreshing] = useState(false)
+  const [selectedSourceMajors, setSelectedSourceMajors] = useState<string[]>([])
+  const [selectedCohortYears, setSelectedCohortYears] = useState<string[]>([])
 
   async function handleProgressReport(file: File) {
     setPrMsg(null)
@@ -98,6 +101,8 @@ export function UploadPage() {
     try {
       const preview = await previewProgressReport(majorCode, file)
       setPrPreview({ ...preview, _file: file })
+      setSelectedSourceMajors(preview.default_source_majors ?? [])
+      setSelectedCohortYears(preview.default_cohort_years ?? [])
     } catch (err: unknown) {
       setPrMsg({ type: 'error', text: err instanceof Error ? err.message : 'Preview failed.' })
     } finally {
@@ -105,13 +110,30 @@ export function UploadPage() {
     }
   }
 
+  async function refreshProgressPreview(file: File, sourceMajors: string[], cohortYears: string[]) {
+    setPrPreviewRefreshing(true)
+    try {
+      const preview = await previewProgressReport(majorCode, file, sourceMajors, cohortYears)
+      setPrPreview({ ...preview, _file: file })
+    } catch (err: unknown) {
+      setPrMsg({ type: 'error', text: err instanceof Error ? err.message : 'Preview failed.' })
+    } finally {
+      setPrPreviewRefreshing(false)
+    }
+  }
+
   async function confirmProgressUpload() {
     if (!prPreview) return
     const file = prPreview._file
+    const sourceMajors = prPreview.requires_major_selection ? selectedSourceMajors : undefined
+    if (prPreview.requires_major_selection && !sourceMajors?.length) {
+      setPrMsg({ type: 'error', text: 'Select at least one source major before uploading.' })
+      return
+    }
     setPrPreview(null)
     setPrLoading(true)
     try {
-      const result = await uploadProgressReport(majorCode, file)
+      const result = await uploadProgressReport(majorCode, file, sourceMajors, selectedCohortYears)
       setPrMsg({ type: 'success', text: `Uploaded successfully — ${result.student_count} students, ${result.row_count} rows.` })
       queryClient.invalidateQueries({ queryKey: ['progress-status', majorCode] })
     } catch (err: unknown) {
@@ -136,6 +158,27 @@ export function UploadPage() {
   }
 
   const s = status.data
+  const previewStudentTotal = prPreview?.total_students ?? 0
+  const previewRowTotal = prPreview?.total_rows ?? 0
+  const canConfirmProgressUpload = (!prPreview?.requires_major_selection || selectedSourceMajors.length > 0) && !prPreviewRefreshing
+
+  function toggleSourceMajor(major: string) {
+    if (!prPreview) return
+    const next = selectedSourceMajors.includes(major)
+      ? selectedSourceMajors.filter((item) => item !== major)
+      : [...selectedSourceMajors, major]
+    setSelectedSourceMajors(next)
+    void refreshProgressPreview(prPreview._file, next, selectedCohortYears)
+  }
+
+  function toggleCohortYear(year: string) {
+    if (!prPreview) return
+    const next = selectedCohortYears.includes(year)
+      ? selectedCohortYears.filter((item) => item !== year)
+      : [...selectedCohortYears, year]
+    setSelectedCohortYears(next)
+    void refreshProgressPreview(prPreview._file, selectedSourceMajors, next)
+  }
 
   return (
     <section className="stack">
@@ -239,9 +282,58 @@ export function UploadPage() {
       {/* Upload diff preview confirmation modal */}
       {prPreview && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
-          <div className="panel stack" style={{ maxWidth: '440px', width: '90%' }}>
+          <div className="panel stack" style={{ maxWidth: '520px', width: '90%' }}>
             <h3 style={{ margin: '0 0 0.4rem' }}>Confirm Upload</h3>
-            <p className="text-muted text-sm" style={{ margin: '0 0 1.25rem' }}>Review what this upload will change before committing:</p>
+            <p className="text-muted text-sm" style={{ margin: '0 0 1.25rem' }}>
+              Review what this upload will change before committing{prPreviewRefreshing ? ' (updating preview...)' : ''}:
+            </p>
+            {prPreview.requires_major_selection && (
+              <div style={{ border: '1px solid var(--line)', borderRadius: '8px', padding: '10px', marginBottom: '1rem' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                  Select source majors to upload
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto' }}>
+                  {prPreview.major_options.map((option) => (
+                    <label key={option.major} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem' }}>
+                      <input
+                        type="checkbox"
+                        checked={selectedSourceMajors.includes(option.major)}
+                        onChange={() => toggleSourceMajor(option.major)}
+                      />
+                      <span style={{ fontWeight: 600 }}>{option.major}</span>
+                      <span className="text-muted text-sm">
+                        {option.student_count} students, {option.row_count} rows
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+            {prPreview.cohort_options.length > 0 && (
+              <div style={{ border: '1px solid var(--line)', borderRadius: '8px', padding: '10px', marginBottom: '1rem' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                  Admission year cohorts
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto' }}>
+                  {prPreview.cohort_options.map((option) => (
+                    <label key={option.year} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem' }}>
+                      <input
+                        type="checkbox"
+                        checked={selectedCohortYears.includes(option.year)}
+                        onChange={() => toggleCohortYear(option.year)}
+                      />
+                      <span style={{ fontWeight: 600 }}>{option.year}</span>
+                      <span className="text-muted text-sm">
+                        {option.student_count} students, {option.row_count} rows
+                      </span>
+                    </label>
+                  ))}
+                </div>
+                <div className="text-muted text-sm" style={{ marginTop: '8px' }}>
+                  Leave all years unchecked to upload all detected admission-year cohorts.
+                </div>
+              </div>
+            )}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '1.25rem' }}>
               <div style={{ textAlign: 'center', padding: '12px', background: '#f0fdf4', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
                 <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#166534' }}>{prPreview.new_students}</div>
@@ -256,13 +348,17 @@ export function UploadPage() {
                 <div style={{ fontSize: '0.72rem', color: '#92400e', textTransform: 'uppercase', fontWeight: 600 }}>Grade Changes</div>
               </div>
               <div style={{ textAlign: 'center', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a' }}>{prPreview.total_students}</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a' }}>{previewStudentTotal}</div>
                 <div style={{ fontSize: '0.72rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 600 }}>Total Students</div>
+              </div>
+              <div style={{ textAlign: 'center', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a' }}>{previewRowTotal}</div>
+                <div style={{ fontSize: '0.72rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 600 }}>Rows Saved</div>
               </div>
             </div>
             <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-              <button type="button" className="btn-outline btn-sm" onClick={() => setPrPreview(null)}>Cancel</button>
-              <button type="button" className="btn-primary btn-sm" onClick={confirmProgressUpload}>Confirm Upload</button>
+              <button type="button" className="btn-outline btn-sm" onClick={() => { setPrPreview(null); setSelectedSourceMajors([]); setSelectedCohortYears([]) }}>Cancel</button>
+              <button type="button" className="btn-primary btn-sm" onClick={confirmProgressUpload} disabled={!canConfirmProgressUpload}>Confirm Upload</button>
             </div>
           </div>
         </div>
