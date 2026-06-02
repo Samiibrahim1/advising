@@ -403,6 +403,36 @@ def test_progress_upload_filters_by_source_major_and_cohort_year(tmp_path: Path,
         get_settings.cache_clear()
 
 
+def test_progress_preview_cohort_options_reflect_selected_source_majors(tmp_path: Path):
+    engine = create_engine(f"sqlite:///{tmp_path / 'test.db'}", future=True)
+    Session = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
+    Base.metadata.create_all(bind=engine)
+
+    content = _xlsx_bytes(pd.DataFrame([
+        {'ID': '20250001', 'NAME': 'Alice', 'MAJOR': 'SPTH', 'Course': 'SPTH201', 'Grade': 'A', 'Year': 2025, 'Semester': 'Fall'},
+        {'ID': '20260002', 'NAME': 'Bob', 'MAJOR': 'SPTH', 'Course': 'SPTH201', 'Grade': 'B', 'Year': 2026, 'Semester': 'Fall'},
+        {'ID': '20240003', 'NAME': 'Cara', 'MAJOR': 'PBHL', 'Course': 'PBHL201', 'Grade': 'A', 'Year': 2024, 'Semester': 'Fall'},
+        {'ID': '20250004', 'NAME': 'Dana', 'MAJOR': 'PBHL', 'Course': 'PBHL202', 'Grade': 'B', 'Year': 2025, 'Semester': 'Fall'},
+    ]))
+
+    session = Session()
+    try:
+        result = preview_progress_upload(session, 'TEST', content, source_majors=['SPTH'])
+
+        assert result['major_options'] == [
+            {'major': 'PBHL', 'student_count': 2, 'row_count': 2},
+            {'major': 'SPTH', 'student_count': 2, 'row_count': 2},
+        ]
+        assert result['cohort_options'] == [
+            {'year': '2025', 'student_count': 1, 'row_count': 1},
+            {'year': '2026', 'student_count': 1, 'row_count': 1},
+        ]
+        assert result['total_students'] == 2
+        assert result['total_rows'] == 2
+    finally:
+        session.close()
+
+
 def test_progress_preview_returns_sticky_filter_defaults_for_same_major(tmp_path: Path, monkeypatch):
     monkeypatch.setenv('LOCAL_STORAGE_PATH', str(tmp_path / 'storage'))
     get_settings.cache_clear()

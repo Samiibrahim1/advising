@@ -307,6 +307,10 @@ def preview_progress_upload(
     )
     if selected_majors:
         incoming_df = _filter_by_source_majors(incoming_df, selected_majors)
+        cohort_options = _cohort_options(incoming_df)
+        available_cohorts = {str(option.get('year', '')).strip() for option in cohort_options}
+        selected_cohorts = selected_cohorts & available_cohorts
+        defaults['default_cohort_years'] = [year for year in defaults['default_cohort_years'] if year in available_cohorts]
     if selected_cohorts:
         incoming_df = _filter_by_cohort_years(incoming_df, selected_cohorts)
     incoming_ids = set(incoming_df['ID'].astype(str).unique()) if 'ID' in incoming_df.columns else set()
