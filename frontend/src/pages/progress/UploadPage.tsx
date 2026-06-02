@@ -75,6 +75,37 @@ function UploadZone({
   )
 }
 
+function FilterOption({
+  checked,
+  label,
+  detail,
+  onChange,
+}: {
+  checked: boolean
+  label: string
+  detail: string
+  onChange: () => void
+}) {
+  return (
+    <label className={`upload-filter-option ${checked ? 'is-selected' : ''}`}>
+      <input type="checkbox" checked={checked} onChange={onChange} />
+      <span className="upload-filter-option-main">
+        <span className="upload-filter-option-label">{label}</span>
+        <span className="upload-filter-option-detail">{detail}</span>
+      </span>
+    </label>
+  )
+}
+
+function UploadMetric({ label, value, tone = 'neutral' }: { label: string; value: number; tone?: 'good' | 'warn' | 'danger' | 'neutral' }) {
+  return (
+    <div className={`upload-review-metric upload-review-metric--${tone}`}>
+      <div className="upload-review-metric-value">{value}</div>
+      <div className="upload-review-metric-label">{label}</div>
+    </div>
+  )
+}
+
 export function UploadPage() {
   const { majorCode, setMajorCode, allowedMajors } = useMajorContext()
   const queryClient = useQueryClient()
@@ -180,6 +211,38 @@ export function UploadPage() {
     void refreshProgressPreview(prPreview._file, selectedSourceMajors, next)
   }
 
+  function setAllSourceMajors() {
+    if (!prPreview) return
+    const next = prPreview.major_options.map((option) => option.major)
+    setSelectedSourceMajors(next)
+    void refreshProgressPreview(prPreview._file, next, selectedCohortYears)
+  }
+
+  function clearSourceMajors() {
+    if (!prPreview) return
+    setSelectedSourceMajors([])
+    void refreshProgressPreview(prPreview._file, [], selectedCohortYears)
+  }
+
+  function setAllCohortYears() {
+    if (!prPreview) return
+    const next = prPreview.cohort_options.map((option) => option.year)
+    setSelectedCohortYears(next)
+    void refreshProgressPreview(prPreview._file, selectedSourceMajors, next)
+  }
+
+  function clearCohortYears() {
+    if (!prPreview) return
+    setSelectedCohortYears([])
+    void refreshProgressPreview(prPreview._file, selectedSourceMajors, [])
+  }
+
+  function closeProgressPreview() {
+    setPrPreview(null)
+    setSelectedSourceMajors([])
+    setSelectedCohortYears([])
+  }
+
   return (
     <section className="stack">
       <div className="page-header flex-between mb-4">
@@ -281,83 +344,99 @@ export function UploadPage() {
 
       {/* Upload diff preview confirmation modal */}
       {prPreview && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
-          <div className="panel stack" style={{ maxWidth: '520px', width: '90%' }}>
-            <h3 style={{ margin: '0 0 0.4rem' }}>Confirm Upload</h3>
-            <p className="text-muted text-sm" style={{ margin: '0 0 1.25rem' }}>
-              Review what this upload will change before committing{prPreviewRefreshing ? ' (updating preview...)' : ''}:
-            </p>
-            {prPreview.requires_major_selection && (
-              <div style={{ border: '1px solid var(--line)', borderRadius: '8px', padding: '10px', marginBottom: '1rem' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
-                  Select source majors to upload
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto' }}>
-                  {prPreview.major_options.map((option) => (
-                    <label key={option.major} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem' }}>
-                      <input
-                        type="checkbox"
-                        checked={selectedSourceMajors.includes(option.major)}
-                        onChange={() => toggleSourceMajor(option.major)}
-                      />
-                      <span style={{ fontWeight: 600 }}>{option.major}</span>
-                      <span className="text-muted text-sm">
-                        {option.student_count} students, {option.row_count} rows
-                      </span>
-                    </label>
-                  ))}
-                </div>
+        <div className="upload-review-overlay" role="presentation">
+          <div className="upload-review-dialog" role="dialog" aria-modal="true" aria-labelledby="upload-review-title">
+            <div className="upload-review-header">
+              <div>
+                <div className="eyebrow text-muted">Progress Report Upload</div>
+                <h3 id="upload-review-title">Review filters and impact</h3>
               </div>
-            )}
-            {prPreview.cohort_options.length > 0 && (
-              <div style={{ border: '1px solid var(--line)', borderRadius: '8px', padding: '10px', marginBottom: '1rem' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
-                  Admission year cohorts
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto' }}>
-                  {prPreview.cohort_options.map((option) => (
-                    <label key={option.year} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem' }}>
-                      <input
-                        type="checkbox"
-                        checked={selectedCohortYears.includes(option.year)}
-                        onChange={() => toggleCohortYear(option.year)}
-                      />
-                      <span style={{ fontWeight: 600 }}>{option.year}</span>
-                      <span className="text-muted text-sm">
-                        {option.student_count} students, {option.row_count} rows
-                      </span>
-                    </label>
-                  ))}
-                </div>
-                <div className="text-muted text-sm" style={{ marginTop: '8px' }}>
-                  Leave all years unchecked to upload all detected admission-year cohorts.
-                </div>
-              </div>
-            )}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '1.25rem' }}>
-              <div style={{ textAlign: 'center', padding: '12px', background: '#f0fdf4', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#166534' }}>{prPreview.new_students}</div>
-                <div style={{ fontSize: '0.72rem', color: '#166534', textTransform: 'uppercase', fontWeight: 600 }}>New Students</div>
-              </div>
-              <div style={{ textAlign: 'center', padding: '12px', background: prPreview.removed_students > 0 ? '#fef2f2' : '#f8fafc', borderRadius: '8px', border: `1px solid ${prPreview.removed_students > 0 ? '#fecaca' : '#e2e8f0'}` }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: prPreview.removed_students > 0 ? '#991b1b' : '#64748b' }}>{prPreview.removed_students}</div>
-                <div style={{ fontSize: '0.72rem', color: prPreview.removed_students > 0 ? '#991b1b' : '#64748b', textTransform: 'uppercase', fontWeight: 600 }}>Removed Students</div>
-              </div>
-              <div style={{ textAlign: 'center', padding: '12px', background: '#fffbeb', borderRadius: '8px', border: '1px solid #fde68a' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#92400e' }}>{prPreview.grade_changes}</div>
-                <div style={{ fontSize: '0.72rem', color: '#92400e', textTransform: 'uppercase', fontWeight: 600 }}>Grade Changes</div>
-              </div>
-              <div style={{ textAlign: 'center', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a' }}>{previewStudentTotal}</div>
-                <div style={{ fontSize: '0.72rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 600 }}>Total Students</div>
-              </div>
-              <div style={{ textAlign: 'center', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a' }}>{previewRowTotal}</div>
-                <div style={{ fontSize: '0.72rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 600 }}>Rows Saved</div>
-              </div>
+              <button type="button" className="upload-review-close" onClick={closeProgressPreview} aria-label="Close upload review">x</button>
             </div>
-            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-              <button type="button" className="btn-outline btn-sm" onClick={() => { setPrPreview(null); setSelectedSourceMajors([]); setSelectedCohortYears([]) }}>Cancel</button>
+
+            <div className="upload-review-body">
+              <div className="upload-review-filters">
+                {prPreview.requires_major_selection && (
+                  <section className="upload-filter-section">
+                    <div className="upload-filter-section-header">
+                      <div>
+                        <h4>Source major</h4>
+                        <p>Choose which MAJOR values belong to this app major.</p>
+                      </div>
+                      <div className="upload-filter-actions">
+                        <button type="button" className="btn-outline btn-sm" onClick={setAllSourceMajors}>All</button>
+                        <button type="button" className="btn-outline btn-sm" onClick={clearSourceMajors}>Clear</button>
+                      </div>
+                    </div>
+                    <div className="upload-filter-summary">
+                      {selectedSourceMajors.length} of {prPreview.major_options.length} selected
+                    </div>
+                    <div className="upload-filter-list">
+                      {prPreview.major_options.map((option) => (
+                        <FilterOption
+                          key={option.major}
+                          checked={selectedSourceMajors.includes(option.major)}
+                          label={option.major}
+                          detail={`${option.student_count} students · ${option.row_count} rows`}
+                          onChange={() => toggleSourceMajor(option.major)}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {prPreview.cohort_options.length > 0 && (
+                  <section className="upload-filter-section">
+                    <div className="upload-filter-section-header">
+                      <div>
+                        <h4>Admission year</h4>
+                        <p>Use the first 4 digits of the student ID to isolate a degree-plan cohort.</p>
+                      </div>
+                      <div className="upload-filter-actions">
+                        <button type="button" className="btn-outline btn-sm" onClick={setAllCohortYears}>All</button>
+                        <button type="button" className="btn-outline btn-sm" onClick={clearCohortYears}>Clear</button>
+                      </div>
+                    </div>
+                    <div className="upload-filter-summary">
+                      {selectedCohortYears.length > 0
+                        ? `${selectedCohortYears.length} of ${prPreview.cohort_options.length} selected`
+                        : 'No year filter; all detected years will be included'}
+                    </div>
+                    <div className="upload-filter-list upload-filter-list--years">
+                      {prPreview.cohort_options.map((option) => (
+                        <FilterOption
+                          key={option.year}
+                          checked={selectedCohortYears.includes(option.year)}
+                          label={option.year}
+                          detail={`${option.student_count} students · ${option.row_count} rows`}
+                          onChange={() => toggleCohortYear(option.year)}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                )}
+              </div>
+
+              <aside className="upload-review-impact">
+                <div className="upload-review-impact-header">
+                  <h4>Upload impact</h4>
+                  {prPreviewRefreshing ? <span>Updating</span> : <span>Ready</span>}
+                </div>
+                <div className="upload-review-metrics">
+                  <UploadMetric label="Students saved" value={previewStudentTotal} />
+                  <UploadMetric label="Rows saved" value={previewRowTotal} />
+                  <UploadMetric label="New students" value={prPreview.new_students} tone="good" />
+                  <UploadMetric label="Removed students" value={prPreview.removed_students} tone={prPreview.removed_students > 0 ? 'danger' : 'neutral'} />
+                  <UploadMetric label="Grade changes" value={prPreview.grade_changes} tone="warn" />
+                </div>
+                {prPreview.requires_major_selection && selectedSourceMajors.length === 0 ? (
+                  <div className="upload-review-warning">Select at least one source major before confirming.</div>
+                ) : null}
+              </aside>
+            </div>
+
+            <div className="upload-review-footer">
+              <button type="button" className="btn-outline btn-sm" onClick={closeProgressPreview}>Cancel</button>
               <button type="button" className="btn-primary btn-sm" onClick={confirmProgressUpload} disabled={!canConfirmProgressUpload}>Confirm Upload</button>
             </div>
           </div>
