@@ -261,10 +261,6 @@ function StudentDetailPanel({
             <span className="text-muted text-xs">Rem</span>
             <span className="font-semibold">{student.remaining_credits}</span>
           </div>
-          <div className="stat-mini">
-            <span className="text-muted text-xs">GPA</span>
-            <span className="font-semibold">{student.gpa != null ? student.gpa.toFixed(2) : '—'}</span>
-          </div>
         </div>
       </div>
 

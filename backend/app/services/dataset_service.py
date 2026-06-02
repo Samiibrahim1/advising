@@ -57,7 +57,7 @@ def load_progress_excel(content: bytes | BytesIO | str) -> pd.DataFrame:
     int_df = sheets[int_key].copy()
     base_columns = ['ID', 'NAME']
     metadata_columns = ['MAJOR']
-    numeric_columns = ['# of Credits Completed', '# Registered', '# Remaining', 'Total Credits', 'GPA']
+    numeric_columns = ['# of Credits Completed', '# Registered', '# Remaining', 'Total Credits']
     for column in base_columns:
         if column not in req_df.columns:
             req_df[column] = None

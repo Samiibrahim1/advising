@@ -22,15 +22,6 @@ GRADE_ORDER: list[str] = [
     "D+", "D", "D-",
 ]
 
-GRADE_POINTS_4_0: dict[str, float | None] = {
-    "A+": 4.0, "A": 4.0, "A-": 3.7,
-    "B+": 3.3, "B": 3.0, "B-": 2.7,
-    "C+": 2.3, "C": 2.0, "C-": 1.7,
-    "D+": 1.3, "D": 1.0, "D-": 0.7,
-    "F":  0.0, "FAIL": 0.0,
-    "P": None, "CR": None, "NR": None, "PASS": None,
-}
-
 CELL_COLORS: dict[str, str] = {
     "c":  "#28a745",   # green  — completed
     "cr": "#FFFACD",   # yellow — currently registered
@@ -398,13 +389,6 @@ def cell_color(value: str) -> str:
     return f"background-color: {CELL_COLORS['nc']}"
 
 
-def grade_to_points(grade: str) -> float | None:
-    grade_upper = str(grade).strip().upper()
-    if "|" in grade_upper:
-        grade_upper = grade_upper.split("|")[0].strip()
-    return GRADE_POINTS_4_0.get(grade_upper)
-
-
 # ──────────────────────────────────────────────────────────────────
 # Main processing pipeline
 # ──────────────────────────────────────────────────────────────────
@@ -434,6 +418,7 @@ def process_progress_report(
     df['Mapped Course'] = df['Course'].apply(
         lambda x: equivalent_courses_mapping.get(str(x).strip().upper(), str(x).strip().upper())
     )
+    df['Assignable Course'] = df['Mapped Course']
 
     # 2) Apply per-student assignments
     if per_student_assignments:
@@ -516,18 +501,7 @@ def process_progress_report(
     result_req = req_pivot[base_cols + list(target_courses.keys())]
     result_int = int_pivot[base_cols + list(intensive_courses.keys())]
 
-    # 8) Remove assigned courses from extras
-    if per_student_assignments:
-        assigned_pairs = {
-            (sid, crs)
-            for sid, assigns in per_student_assignments.items()
-            for crs in assigns.values()
-        }
-        extra_df = extra_df[
-            ~extra_df.apply(lambda r: (str(r['ID']), str(r['Course']).strip().upper()) in assigned_pairs, axis=1)
-        ]
-
-    extra_list = sorted(extra_df['Course'].unique().tolist()) if not extra_df.empty else []
+    extra_list = sorted(extra_df['Assignable Course'].unique().tolist()) if not extra_df.empty else []
     return result_req, result_int, extra_df, extra_list
 
 
@@ -539,7 +513,7 @@ def _collect_assignment_types(per_student: dict[str, dict[str, str]]) -> list[st
 
 
 # ──────────────────────────────────────────────────────────────────
-# Credit & GPA calculations
+# Credit calculations
 # ──────────────────────────────────────────────────────────────────
 
 def calculate_credits(row: pd.Series, courses_dict: dict[str, int]) -> dict[str, float]:
@@ -582,38 +556,3 @@ def calculate_credits(row: pd.Series, courses_dict: dict[str, int]) -> dict[str,
         'remaining': float(remaining),
         'total': float(total),
     }
-
-
-def calculate_gpa_for_rows(
-    df: pd.DataFrame,
-    courses_dict: dict[str, int],
-) -> dict[str, float | None]:
-    """
-    Compute GPA for each student row in a processed pivot DataFrame.
-    Returns {student_id: gpa_or_None}.
-    """
-    results: dict[str, float | None] = {}
-    course_cols = list(courses_dict.keys())
-
-    for _, row in df.iterrows():
-        total_points = 0.0
-        total_credits = 0.0
-
-        for course in course_cols:
-            cred = courses_dict.get(course, 0)
-            if cred <= 0:
-                continue
-            val = str(row.get(course, 'NR'))
-            if val.strip().upper() in ('NR', 'NAN', ''):
-                continue
-
-            primary = extract_primary_grade(val)
-            grade_part = primary.split('|')[0].strip() if '|' in primary else primary.strip()
-            points = grade_to_points(grade_part)
-            if points is not None:
-                total_points += points * cred
-                total_credits += cred
-
-        results[str(row['ID'])] = round(total_points / total_credits, 2) if total_credits > 0 else None
-
-    return results

@@ -361,7 +361,6 @@ export type StudentProgressRow = {
   registered_credits: number
   remaining_credits: number
   total_credits: number
-  gpa: number | null
 }
 
 export type ProgressReportResponse = {

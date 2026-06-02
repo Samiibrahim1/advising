@@ -193,7 +193,7 @@ def test_generate_report_returns_per_student_extra_courses(tmp_path: Path):
         session.close()
 
 
-def test_generate_report_removes_assigned_extra_courses(tmp_path: Path):
+def test_generate_report_keeps_assigned_extra_courses_editable(tmp_path: Path):
     engine = create_engine(f"sqlite:///{tmp_path / 'test.db'}", future=True)
     Session = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
     Base.metadata.create_all(bind=engine)
@@ -236,8 +236,8 @@ def test_generate_report_removes_assigned_extra_courses(tmp_path: Path):
         session.commit()
 
         report = generate_report(session, 'TEST', page_size=50)
-        assert report.extra_courses == []
-        assert report.required[0].extra_courses == []
+        assert report.extra_courses == ['PBHL450']
+        assert report.required[0].extra_courses == ['PBHL450']
     finally:
         session.close()
 

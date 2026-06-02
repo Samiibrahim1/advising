@@ -46,7 +46,7 @@ function gradeCellClass(val: string): string {
 }
 
 // ─── Sort types + helpers ────────────────────────────────────────
-type SortKey = 'id' | 'name' | 'major' | 'done' | 'reg' | 'rem' | 'gpa'
+type SortKey = 'id' | 'name' | 'major' | 'done' | 'reg' | 'rem'
 
 function SortIcon({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
   return (
@@ -66,7 +66,6 @@ function sortRows(rows: StudentProgressRow[], sortBy: SortKey, sortDir: 'asc' | 
       case 'done': cmp = a.completed_credits - b.completed_credits; break
       case 'reg':  cmp = a.registered_credits - b.registered_credits; break
       case 'rem':  cmp = a.remaining_credits - b.remaining_credits; break
-      case 'gpa':  cmp = (a.gpa ?? -1) - (b.gpa ?? -1); break
     }
     return sortDir === 'desc' ? -cmp : cmp
   })
@@ -119,7 +118,6 @@ function ProgressTable({
               {sortableTh('done', 'Done', 60)}
               {sortableTh('reg', 'Reg', 60)}
               {sortableTh('rem', 'Rem', 60)}
-              {sortableTh('gpa', 'GPA', 55)}
             </tr>
           </thead>
           <tbody>
@@ -155,7 +153,6 @@ function ProgressTable({
                 <td style={{ textAlign: 'right' }}>{row.completed_credits}</td>
                 <td style={{ textAlign: 'right' }}>{row.registered_credits}</td>
                 <td style={{ textAlign: 'right' }}>{row.remaining_credits}</td>
-                <td style={{ textAlign: 'right' }}>{row.gpa != null ? row.gpa.toFixed(2) : '—'}</td>
               </tr>
             ))}
           </tbody>

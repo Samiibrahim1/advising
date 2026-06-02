@@ -22,7 +22,6 @@ from app.services.dataset_service import dataset_dataframe, get_active_dataset, 
 from app.services.progress_processing import (
     CELL_COLORS,
     calculate_credits,
-    calculate_gpa_for_rows,
     cell_color,
     extract_primary_grade,
     process_progress_report,
@@ -653,7 +652,13 @@ def generate_report(
 def _extra_courses_by_student(extra_df: pd.DataFrame) -> dict[str, list[str]]:
     if extra_df.empty:
         return {}
-    course_col = 'Mapped Course' if 'Mapped Course' in extra_df.columns else 'Course'
+    course_col = (
+        'Assignable Course'
+        if 'Assignable Course' in extra_df.columns
+        else 'Mapped Course'
+        if 'Mapped Course' in extra_df.columns
+        else 'Course'
+    )
     grouped: dict[str, set[str]] = {}
     for _, row in extra_df.iterrows():
         student_id = str(row.get('ID', '')).strip()
@@ -674,7 +679,6 @@ def _build_student_rows(
         return []
 
     course_cols = list(courses_dict.keys())
-    gpa_map = calculate_gpa_for_rows(df, courses_dict)
 
     rows: list[StudentProgressRow] = []
     for _, row in df.iterrows():
@@ -698,7 +702,6 @@ def _build_student_rows(
                 registered_credits=credits['registered'],
                 remaining_credits=credits['remaining'],
                 total_credits=credits['total'],
-                gpa=gpa_map.get(str(row['ID'])),
             )
         )
     return rows
@@ -791,9 +794,9 @@ def _write_excel_sheet(
     course_cols = list(courses_dict.keys())
     # Use column names matching the advising app's expected format when pushing
     if advising_format:
-        summary_headers = ['# of Credits Completed', '# Registered', '# Remaining', 'Total Credits', 'GPA']
+        summary_headers = ['# of Credits Completed', '# Registered', '# Remaining', 'Total Credits']
     else:
-        summary_headers = ['Completed', 'Registered', 'Remaining', 'Total', 'GPA']
+        summary_headers = ['Completed', 'Registered', 'Remaining', 'Total']
     include_major = 'MAJOR' in df.columns
     identity_headers = ['ID', 'NAME'] + (['MAJOR'] if include_major else [])
     headers = identity_headers + course_cols + summary_headers
@@ -801,8 +804,6 @@ def _write_excel_sheet(
 
     if df.empty:
         return
-
-    gpa_map = calculate_gpa_for_rows(df, courses_dict)
 
     for _, row in df.iterrows():
         display: dict[str, str] = {}
@@ -818,7 +819,6 @@ def _write_excel_sheet(
                 )
 
         credits = calculate_credits(row, courses_dict)
-        gpa = gpa_map.get(str(row['ID']))
         ws_row = [str(row['ID']), str(row['NAME'])]
         if include_major:
             ws_row.append(str(row.get('MAJOR', '') or ''))
@@ -826,7 +826,6 @@ def _write_excel_sheet(
         ws_row += [
             credits['completed'], credits['registered'],
             credits['remaining'], credits['total'],
-            round(float(gpa), 2) if gpa is not None else '',
         ]
         ws.append(ws_row)
 

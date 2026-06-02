@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from pydantic import BaseModel, ConfigDict, Field
+from typing import Optional
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -89,7 +88,6 @@ class StudentProgressRow(BaseModel):
     registered_credits: float
     remaining_credits: float
     total_credits: float
-    gpa: Optional[float] = None
 
 
 class ReportResponse(BaseModel):
