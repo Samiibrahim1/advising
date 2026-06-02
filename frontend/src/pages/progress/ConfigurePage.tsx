@@ -31,17 +31,23 @@ function EquivalentsPanel({ majorCode }: { majorCode: string }) {
   const qc = useQueryClient()
   const equivQuery = useProgressEquivalents(majorCode)
   const [rows, setRows] = useState<{ alias_code: string; canonical_code: string }[]>([])
-  const [initialised, setInitialised] = useState(false)
+  const [loadedMajorCode, setLoadedMajorCode] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
 
-  // Seed local state once data arrives
+  // Keep the editable rows scoped to the currently selected app major.
   useEffect(() => {
-    if (!initialised && equivQuery.data) {
-      setRows(equivQuery.data.map((e) => ({ alias_code: e.alias_code, canonical_code: e.canonical_code })))
-      setInitialised(true)
+    if (majorCode !== loadedMajorCode) {
+      setRows([])
+      setMsg(null)
+      setLoadedMajorCode(null)
     }
-  }, [equivQuery.data, initialised])
+
+    if (equivQuery.data && majorCode !== loadedMajorCode) {
+      setRows(equivQuery.data.map((e) => ({ alias_code: e.alias_code, canonical_code: e.canonical_code })))
+      setLoadedMajorCode(majorCode)
+    }
+  }, [equivQuery.data, loadedMajorCode, majorCode])
 
   function addRow() {
     setRows((prev) => [...prev, { alias_code: '', canonical_code: '' }])
@@ -56,6 +62,7 @@ function EquivalentsPanel({ majorCode }: { majorCode: string }) {
   }
 
   async function handleSave() {
+    if (equivQuery.isLoading || loadedMajorCode !== majorCode) return
     setSaving(true)
     setMsg(null)
     try {
@@ -134,7 +141,12 @@ function EquivalentsPanel({ majorCode }: { majorCode: string }) {
 
           <div className="flex-between mt-3">
             <button type="button" className="btn btn-secondary" onClick={addRow}>+ Add Row</button>
-            <button type="button" className="btn btn-primary" onClick={handleSave} disabled={saving}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSave}
+              disabled={saving || equivQuery.isLoading || loadedMajorCode !== majorCode}
+            >
               {saving ? 'Saving…' : 'Save Equivalents'}
             </button>
           </div>
@@ -348,7 +360,7 @@ export function ConfigurePage() {
       {majorCode ? (
         <>
           <div className="grid-2">
-            <EquivalentsPanel majorCode={majorCode} />
+            <EquivalentsPanel key={majorCode} majorCode={majorCode} />
             <AssignmentTypesPanel majorCode={majorCode} />
           </div>
           <BulkElectivePanel majorCode={majorCode} />
